@@ -1,0 +1,27 @@
+@import '../Theme';
+
+$drawer_font: $font !default;
+$drawer_fg: brighten($on_surface, 15%);
+
+.drawer {
+	color: $drawer_fg;
+	position: fixed;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	overflow: hidden;
+	contain: strict;
+	z-index: 5;
+	font-family: $drawer-font;	
+}
+
+.header {
+
+}
+
+.content {
+
+}

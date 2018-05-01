@@ -1,0 +1,24 @@
+{
+  "name": "solids",
+  "version": "0.0.1",
+  "description": "CSS-only Material Design Foundation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/download/solids.git"
+  },
+  "keywords": [
+    "CSS-only",
+    "framework",
+    "material"
+  ],
+  "author": "Stijn de Witt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/download/solids/issues"
+  },
+  "homepage": "https://github.com/download/solids#readme"
+}
