@@ -4,7 +4,7 @@ $appbar_bg: $primary !default;
 $appbar_fg: $on_primary !default;
 $appbar_font: $font !default;
 
-.bar {
+.solid_appbar {
 	height: 64px;
 	display: flex;
 	flex-direction: column;
@@ -14,54 +14,57 @@ $appbar_font: $font !default;
 	font-family: $appbar-font;
 }
 
-.fixed {
+.solid_appbar._fixed {
 	height: 80px;
 	position: sticky;
 	top: -16px;
 	margin-bottom: -16px;
 }
 
-.prominent {
+.solid_appbar._fixed:before,
+.solid_appbar._fixed:after {
+	content: '';
+	display: block;
+}
+
+.solid_appbar._prominent {
 	height: 128px;
 }
 
-.fixed.prominent {
+.solid_appbar._fixed._prominent {
 	height: 144px;
 }
 
-.fixed.prominent.shrink {
+.solid_appbar._fixed._prominent._shrink {
 	height: 128px;
 	top: -64px;
 	margin-bottom: 0px;
 }
 
-.dense {
+.solid_appbar._dense {
 
 }
 
-.shadow {
+.solid_appbar._fixed:before {
 	height: 64px;
-}
-
-.prominent .shadow {
-	height: 128px;
-}
-
-.fixed.prominent.shrink .shadow {
-	height: 64px;
-}
-
-.fixed .shadow {
 	position: sticky;
 	top: 0px;
 	box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-.elevated .shadow {
+.solid_appbar._fixed._prominent:before {
+	height: 128px;
+}
+
+.solid_appbar._fixed._prominent._shrink::before {
+	height: 64px;
+}
+
+.solid_appbar._elevated::before {
 	box-shadow: none;
 }
 
-.row {
+.solid_appbar >div {
 	height: 64px;
 	margin-top: -64px;
 	background-color: $appbar_bg;
@@ -69,35 +72,32 @@ $appbar_font: $font !default;
 	z-index: 1;
 }
 
-.elevated .row {
+.solid_appbar._elevated >div {
 	box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-.prominent .row {
+.solid_appbar._prominent >div {
 	height: 128px;	
 	margin-top: -128px;
 }
 
-.fixed .row {
+.solid_appbar._fixed >div {
 	position: sticky;
 	top: 0px;
 }
 
-.cover {
-}
-
-.fixed .cover {
+.solid_appbar._fixed::after {
 	height: 16px;
 	position: sticky;
 	top: 0px;
 	background: linear-gradient(rgba($page_bg,1), rgba($page_bg,0));
 }
 
-.elevated .cover {
+.solid_appbar._elevated::after {
 	background: transparent;
 }
 
-.section {
+.solid_appbar >div >section {
 	height: 64px;
 	position: sticky;
 	top: 64px;
@@ -108,17 +108,25 @@ $appbar_font: $font !default;
 	padding: 8px 12px;
 }
 
-.start {
+.solid_appbar ._start {
 	justify-content: flex-start;
 	order: -1;
 }
 
-.end {
+.solid_appbar ._end {
 	justify-content: flex-end;
 	order: 1;
 }
 
-.title {
+.solid_appbar ._start._reserve {
+
+}
+
+.solid_appbar ._end._reserve {
+
+}
+
+.solid_appbar ._title {
 	font-family: Roboto, sans-serif;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
@@ -136,17 +144,17 @@ $appbar_font: $font !default;
 	z-index: 1;
 }
 
-.prominent .title {
+.solid_appbar._prominent ._title {
 	align-self: flex-end;
 	padding-bottom: 2px;
 }
 
-.fixed.prominent.shrink .title {
+.solid_appbar._fixed._prominent._shrink ._title {
 	align-self: center;
 	padding-bottom: 0;
 }
 
-.icon {
+.solid_appbar ._icon {
 	align-self: flex-start;
 	will-change: transform, opacity;
 	display: flex;
@@ -166,6 +174,6 @@ $appbar_font: $font !default;
 	text-decoration: none;
 }
 
-.action {
+.solid_appbar ._action {
 	cursor: pointer;	
 }
