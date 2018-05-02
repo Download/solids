@@ -1,6 +1,6 @@
 {
   "name": "solids",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "CSS-only Material Design Foundation",
   "main": "index.js",
   "scripts": {
