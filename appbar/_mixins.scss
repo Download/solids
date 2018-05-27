@@ -1,0 +1,154 @@
+//
+// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@import "../animation/variables";
+@import "../ripple/mixins";
+@import "../theme/variables"; // for mdc-theme-accessible-ink-color
+@import "../theme/mixins";
+@import "./variables";
+
+//
+// Public
+//
+
+@mixin appbar-ink-color($color) {
+  @include mdc-theme-prop(color, $color);
+}
+
+@mixin appbar-fill-color($color) {
+  @include mdc-theme-prop(background-color, $color);
+}
+
+@mixin appbar-fill-color-accessible($color) {
+  @include appbar-fill-color($color);
+  @include appbar-ink-color(mdc-theme-accessible-ink-color($color));
+}
+
+@mixin appbar-icon-ink-color($color) {
+  .solid_appbar >div >section .appbar_action,
+  .solid_appbar >div >section .appbar_icon {
+    @include mdc-theme-prop(color, $color);
+    @include mdc-states($color);
+  }
+}
+
+@mixin appbar-short-border-radius($border-radius: $appbar-short-collapsed-border-radius) {
+  @include mdc-rtl-reflexive_(border-bottom-left-radius, 0, border-bottom-right-radius, $border-radius);
+}
+
+@mixin appbar-mobile-breakpoint_($mobile-breakpoint: $appbar-mobile-breakpoint) {
+  @media (max-width: $mobile-breakpoint) {
+    .solid_appbar {
+      >div {
+        height: $appbar-mobile-row-height;
+        >section {
+          padding: $appbar-mobile-section-padding;
+        }
+      }
+
+      &.appbar_short {
+        transition: width 200ms $mdc-animation-standard-curve-timing-function;
+        &.appbar_short_collapsed {
+          transition: width 250ms $mdc-animation-standard-curve-timing-function;
+          >div {
+            >section.appbar_end {
+              @include mdc-rtl-reflexive-box(padding, right, $appbar-short-collapsed-right-icon-padding);
+            }
+          }
+        }
+      }
+
+      &.appbar_prominent {
+        >div {
+          height: $appbar-prominent-row-height;
+          >section .appbar_title {
+//            padding-bottom: $appbar-prominent-mobile-title-bottom-padding;
+          }
+        }
+      }
+
+      &.appbar_dense.appbar_prominent {
+        >div {
+          height: $appbar-dense-row-height*2;
+          >section .appbar_title {
+            padding-bottom: 0;
+          }
+        }
+      }
+
+      &.appbar_fixed {
+        height: $appbar-mobile-row-height + 16px;
+
+        &:before {
+          top: $appbar-mobile-row-height - 16px;
+        }
+
+        &.appbar_shrink {
+          &.appbar_prominent {
+    //        height: $appbar-prominent-row-height;
+            top: -($appbar-prominent-row-height - $appbar-mobile-row-height);
+            
+            >div {
+              >section {
+                height: $appbar-mobile-row-height;
+                &.appbar_start {
+                  top: $appbar-mobile-row-height + 16px;
+                }
+              }
+            }
+
+            &:before {
+              top: $appbar-mobile-row-height - 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+//
+// Private
+//
+
+// Applies styles to the different types of icons that can exist in top-app-bars.
+// Both .mdc-top-app-bar__icon and .mdc-top-app-bar__navigation-icon share all styles except for
+// horizontal padding.
+@mixin appbar-icon_() {
+  @include mdc-ripple-surface;
+  @include mdc-ripple-radius-unbounded;
+
+  display: flex;
+  position: relative;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: $appbar-icon-size + $appbar-icon-padding * 2;
+  height: $appbar-icon-size + $appbar-icon-padding * 2;
+  padding: $appbar-icon-padding;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  fill: currentColor;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}

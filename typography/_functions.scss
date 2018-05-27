@@ -1,0 +1,71 @@
+//
+// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@function typography-get-global-variable_($style) {
+  @if $style == "headline1" {
+    @return $typography-styles-headline1;
+  } @else if $style == "headline2" {
+    @return $typography-styles-headline2;
+  } @else if $style == "headline3" {
+    @return $typography-styles-headline3;
+  } @else if $style == "headline4" {
+    @return $typography-styles-headline4;
+  } @else if $style == "headline5" {
+    @return $typography-styles-headline5;
+  } @else if $style == "headline6" {
+    @return $typography-styles-headline6;
+  } @else if $style == "subtitle1" {
+    @return $typography-styles-subtitle1;
+  } @else if $style == "subtitle2" {
+    @return $typography-styles-subtitle2;
+  } @else if $style == "body1" {
+    @return $typography-styles-body1;
+  } @else if $style == "body2" {
+    @return $typography-styles-body2;
+  } @else if $style == "caption" {
+    @return $typography-styles-caption;
+  } @else if $style == "button" {
+    @return $typography-styles-button;
+  } @else if $style == "overline" {
+    @return $typography-styles-overline;
+  } @else {
+    @return ();
+  }
+}
+
+@function typography-set-styles_($base-styles, $scale-styles) {
+  @each $style, $style-props in $scale-styles {
+
+    // Merge base properties for all styles.
+    $style-props: map-merge($base-styles, $style-props);
+
+    // Merge global overrides onto each style.
+    @if global_variable_exists(typography-styles-#{$style}) {
+      $style-props: map-merge($style-props, typography-get-global-variable_(#{$style}));
+    }
+
+    // Override original styles with new styles.
+    $scale-styles: map-merge($scale-styles, (#{$style}: $style-props));
+  }
+
+  @return $scale-styles;
+}
+
+@function typography-get-letter-spacing_($tracking, $font-size) {
+  @return $tracking / ($font-size * 16) * 1em;
+}

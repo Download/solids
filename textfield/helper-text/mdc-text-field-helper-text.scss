@@ -1,0 +1,48 @@
+//
+// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@import "../functions";
+@import "../theme/mixins";
+@import "../typography/mixins";
+
+// postcss-bem-linter: define text-field-helper-text
+
+.mdc-text-field-helper-text {
+  @include typography(caption);
+
+  margin: 0;
+  transition: mdc-text-field-transition(opacity);
+  opacity: 0;
+  font-size: .75rem;
+  will-change: opacity;
+
+  // stylelint-disable plugin/selector-bem-pattern
+  .mdc-text-field + & {
+    margin-bottom: 8px;
+  }
+
+  // stylelint-enable plugin/selector-bem-pattern
+}
+
+.mdc-text-field-helper-text--persistent {
+  transition: none;
+  opacity: 1;
+  will-change: initial;
+}
+
+// postcss-bem-linter: end

@@ -1,0 +1,37 @@
+//
+// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@import "../theme/variables";
+
+$mdc-chip-border-radius-default: 16px;
+$mdc-chip-fill-color-default: mix(mdc-theme-prop-value(on-surface), mdc-theme-prop-value(surface), 12%);
+$mdc-chip-ink-color-default: rgba(mdc-theme-prop-value(on-surface), .87);
+$mdc-chip-horizontal-padding: 12px;
+$mdc-chip-vertical-padding: 7px;
+
+$mdc-chip-icon-color: mdc-theme-prop-value(on-surface);
+$mdc-chip-icon-opacity: .54;
+$mdc-chip-trailing-icon-hover-opacity: .62;
+$mdc-chip-trailing-icon-focus-opacity: .87;
+$mdc-chip-leading-icon-size: 20px;
+$mdc-chip-trailing-icon-size: 18px;
+
+$mdc-chip-checkmark-animation-delay: 50ms;
+$mdc-chip-checkmark-animation-duration: 150ms;
+$mdc-chip-width-animation-duration: 150ms;
+$mdc-chip-opacity-animation-duration: 75ms;

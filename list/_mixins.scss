@@ -1,0 +1,83 @@
+//
+// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@import "../rtl/mixins";
+@import "../theme/mixins";
+@import "./variables";
+
+//
+// Public
+//
+
+@mixin list_item_primary_text_ink_color($color) {
+  @include mdc-theme-prop(color, $color);
+}
+
+@mixin list_item_secondary_text_ink_color($color) {
+  .list_item_secondary_text {
+    @include mdc-theme-prop(color, $color);
+  }
+}
+
+@mixin list_item_graphic_fill_color($color) {
+  .list_item_graphic {
+    @include mdc-theme-prop(background-color, $color);
+  }
+}
+
+@mixin list_item_graphic_ink_color($color) {
+  .list_item_graphic {
+    @include mdc-theme-prop(color, $color);
+  }
+}
+
+@mixin list_item_meta_ink_color($color) {
+  .list_item_meta {
+    @include mdc-theme-prop(color, $color);
+  }
+}
+
+@mixin list_divider_color($color) {
+  .list_divider {
+    @include mdc-theme-prop(border-bottom-color, $color);
+  }
+}
+
+@mixin list_group_subheader_ink_color($color) {
+  .list_group_subheader {
+    @include mdc-theme-prop(color, $color);
+  }
+}
+
+//
+// Private
+//
+
+// Sets the width and height of the graphic element, as well as calculates the margins for
+// the graphic element such that the text is always offset by 72px, which is defined within
+// the spec.
+@mixin list_graphic_size_($size) {
+  $text-offset: 72px;
+  $side-padding: $list_side_padding;
+  $margin-value: $text-offset - $side-padding - $size;
+
+  @include mdc-rtl-reflexive-box(margin, right, $margin-value, ".list_item");
+
+  width: $size;
+  height: $size;
+}

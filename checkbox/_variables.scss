@@ -1,0 +1,38 @@
+//
+// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@import "../theme/variables";
+
+$mdc-checkbox-mark-color: mdc-theme-prop-value(on-primary);
+$mdc-checkbox-border-color: rgba(mdc-theme-prop-value(on-surface), .54);
+$mdc-checkbox-disabled-color: rgba(mdc-theme-prop-value(on-surface), .26);
+$mdc-checkbox-baseline-theme-color: secondary;
+
+$mdc-checkbox-touch-area: 40px;
+$mdc-checkbox-size: 18px;
+$mdc-checkbox-ui-pct: percentage($mdc-checkbox-size / $mdc-checkbox-touch-area);
+$mdc-checkbox-mark-stroke-size: 2/15 * $mdc-checkbox-size;
+$mdc-checkbox-border-width: 2px;
+$mdc-checkbox-transition-duration: 90ms;
+$mdc-checkbox-item-spacing: 4px;
+$mdc-checkbox-ripple-opacity: .14;
+$mdc-checkbox-focus-indicator-opacity: .26;
+
+// Manual calculation done on SVG
+$mdc-checkbox-mark-path-length_: 29.7833385;
+$mdc-checkbox-indeterminate-checked-easing-function_: cubic-bezier(.14, 0, 0, 1);

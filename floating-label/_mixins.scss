@@ -1,0 +1,70 @@
+//
+// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@import "./variables";
+
+@mixin mdc-floating-label-ink-color($color) {
+  @include mdc-theme-prop(color, $color);
+}
+
+// Used for textarea in case of scrolling
+@mixin mdc-floating-label-fill-color($color) {
+  @include mdc-theme-prop(background-color, $color);
+}
+
+@mixin mdc-floating-label-shake-keyframes($modifier, $positionY, $positionX: 0%, $scale: .75) {
+  @keyframes mdc-floating-label-shake-float-above-#{$modifier} {
+    0% {
+      transform: translateX(calc(0 - #{$positionX})) translateY(-#{$positionY}) scale(#{$scale});
+    }
+
+    33% {
+      animation-timing-function: cubic-bezier(.5, 0, .701732, .495819);
+      transform: translateX(calc(4% - #{$positionX})) translateY(-#{$positionY}) scale(#{$scale});
+    }
+
+    66% {
+      animation-timing-function: cubic-bezier(.302435, .381352, .55, .956352);
+      transform: translateX(calc(-4% - #{$positionX})) translateY(-#{$positionY}) scale(#{$scale});
+    }
+
+    100% {
+      transform: translateX(calc(0 - #{$positionX})) translateY(-#{$positionY}) scale(#{$scale});
+    }
+  }
+}
+
+@mixin mdc-floating-label-float-position($positionY, $positionX: 0%, $scale: .75) {
+  .mdc-floating-label--float-above {
+    @if $positionX == 0 {
+      transform: translateY(-1 * $positionY) scale($scale);
+    } @else {
+      transform: translateY(-1 * $positionY) translateX(-1 * $positionX) scale($scale);
+
+      @include mdc-rtl {
+        transform: translateY(-1 * $positionY) translateX($positionX) scale($scale);
+      }
+    }
+  }
+}
+
+@mixin mdc-floating-label-shake-animation($modifier) {
+  .mdc-floating-label--shake {
+    animation: mdc-floating-label-shake-float-above-#{$modifier} 250ms 1;
+  }
+}

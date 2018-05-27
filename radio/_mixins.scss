@@ -1,0 +1,47 @@
+//
+// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@import "../theme/variables";
+@import "./variables";
+
+@mixin mdc-radio-unchecked-stroke-color($color) {
+  // stylelint-disable-next-line selector-max-specificity
+  .mdc-radio__native-control:enabled:not(:checked) + .mdc-radio__background .mdc-radio__outer-circle {
+    @include mdc-theme-prop(border-color, $color);
+  }
+}
+
+@mixin mdc-radio-checked-stroke-color($color) {
+  // stylelint-disable-next-line selector-max-specificity
+  .mdc-radio__native-control:enabled:checked + .mdc-radio__background .mdc-radio__outer-circle {
+    @include mdc-theme-prop(border-color, $color);
+  }
+}
+
+@mixin mdc-radio-ink-color($color) {
+  // stylelint-disable-next-line selector-max-specificity
+  .mdc-radio__native-control:enabled + .mdc-radio__background .mdc-radio__inner-circle {
+    @include mdc-theme-prop(background-color, $color);
+  }
+}
+
+@mixin mdc-radio-focus-indicator-color($color) {
+  .mdc-radio__background::before {
+    @include mdc-theme-prop(background-color, $color, $edgeOptOut: true);
+  }
+}
