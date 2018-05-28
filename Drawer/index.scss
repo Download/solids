@@ -31,40 +31,50 @@
 	@include mdc-drawer-ink-color($drawer-ink-color);
 	@include mdc-drawer-fill-color($drawer-fill-color);
 
+	float: left;
+	@include mdc-rtl {
+		float: right;
+	}
+	height: 100%;
+
+	&~ main {
+		display: table-cell;
+	}
+
 	>nav {
-		width: 0;
+		padding-bottom: 99999px;
+		margin-bottom: -99999px;
 		overflow: hidden;
-		will-change: width, transform;
-		transition: all 300ms;
 
 		>header,
 		>nav,
 		>footer {
 			width: $drawer-width;
-			will-change: transform;
-			transform: translateX(-$drawer-width);
-			transition: all 300ms;
 		}
 	}
 
 	// right-hand side drawer (in ltr)
 	&.drawer_end {
+		float: right;
+		@include mdc-rtl {
+			float: left;
+		}
 	}
 
 	.drawer_button_persistent,
 	.drawer_button_temporary {
-		position: absolute;
+		position: fixed;
 		cursor: pointer;
-		top: -($appbar-row-height + 16px);
-		display: block;
-		width: $appbar-icon-size + 2*$appbar-icon-padding;
-		height: $appbar-icon-size + 2*$appbar-icon-padding;
-		margin: 0;
-		padding: 0;
+		top: 0;
 		z-index: 1;
 		user-select: none;
 		
 		>span {
+			@include appbar-icon_;
+			@include appbar-fill-color-accessible(primary);
+			@include appbar-icon-ink-color(on-primary);
+			margin: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
+			/*
 			position: absolute;
 			width: $appbar-icon-size + 2*$appbar-icon-padding;
 			height: $appbar-icon-size + 2*$appbar-icon-padding;
@@ -72,6 +82,7 @@
 			margin: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
 			z-index: 1;
 			color: white;
+			*/
 		}
 	}
 
@@ -91,7 +102,6 @@
 	
 		>nav {
 			@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-			@include mdc-rtl-reflexive-position(left, 0);
 			box-sizing: border-box;
 			overflow: hidden;
 			width: $drawer-width;
@@ -107,11 +117,40 @@
 				background: none;
 			}
 		}
+
+		// right-hand side drawer (in ltr)
+		&.drawer_end {
+			>nav {
+				@include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
+			}
+	
+			&.drawer_floating {
+				>nav {
+					@include mdc-rtl-reflexive-box(border, left, none);
+				}
+			}
+		}
 	}
 	
 	// RESPONSIVE or PERSISTENT
 	&.drawer_responsive,
 	&.drawer_persistent {
+		>nav {
+			width: 0;
+			will-change: width, transform;
+			transition: all 300ms;
+
+			>header,
+			>nav,
+			>footer {
+				will-change: transform;
+				transform: translateX(-$drawer-width);
+				@include mdc-rtl {
+					transform: translateX($drawer-width);
+				}
+				transition: all 300ms;
+			}
+		}
 		.drawer_toggle_persistent {
 			&:checked ~ nav {
 				@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
@@ -131,11 +170,29 @@
 				}
 			}
 		}
+
+		&.drawer_end {
+			>nav {
+				>header,
+				>nav,
+				>footer {
+					transform: translateX($drawer-width);
+					@include mdc-rtl {
+						transform: translateX(-$drawer-width);
+					}
+				}
+			}			
+		}
 	}
 
 	// RESPONSIVE or TEMPORARY
 	&.drawer_responsive,
 	&.drawer_temporary {
+		>nav {
+			width: 0;
+			will-change: width, transform;
+			transition: all 300ms;
+		}
 		.drawer_toggle_temporary {
 			&:checked ~ nav {
 				@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
