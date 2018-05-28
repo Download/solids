@@ -34,6 +34,7 @@
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 16px;
+  z-index: 1;
 
   >div {
     display: flex;
@@ -94,7 +95,6 @@
     left: 0;
     width: 100%;
     transition: width 250ms $mdc-animation-standard-curve-timing-function;
-    z-index: 4;
 
     @include mdc-rtl {
       right: 0;
@@ -201,7 +201,6 @@
     position: sticky;
     top: -16px;
     margin-bottom: 0px;
-    z-index: 1;
     height: $appbar-row-height + 16px;
     background: transparent;
 

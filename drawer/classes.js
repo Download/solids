@@ -23,6 +23,7 @@ module.exports = {
 	drawer_permanent: 'drawer_permanent',
 	drawer_persistent: 'drawer_persistent',
 	drawer_responsive: 'drawer_responsive',
+	drawer_fixed: 'drawer_fixed',
 	drawer_end: 'drawer_end',
 	drawer_content: 'drawer_content',
 	drawer_button_persistent: 'drawer_button_persistent',

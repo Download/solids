@@ -36,28 +36,25 @@
 		float: right;
 	}
 	height: 100%;
+	z-index: 2;
 
 	&~ main {
 		display: table-cell;
 	}
 
-	>nav {
+	>div {
 		padding-bottom: 99999px;
 		margin-bottom: -99999px;
 		overflow: hidden;
 
-		>header,
-		>nav,
-		>footer {
+		>nav {
 			width: $drawer-width;
 		}
-	}
 
-	// right-hand side drawer (in ltr)
-	&.drawer_end {
-		float: right;
-		@include mdc-rtl {
-			float: left;
+		&:after {
+			content:'';
+			display: block;
+			height: 1px;
 		}
 	}
 
@@ -68,21 +65,16 @@
 		top: 0;
 		z-index: 1;
 		user-select: none;
-		
+		left: 0;
+		@include mdc-rtl {
+			right: 0;
+		}
+			
 		>span {
 			@include appbar-icon_;
 			@include appbar-fill-color-accessible(primary);
 			@include appbar-icon-ink-color(on-primary);
 			margin: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
-			/*
-			position: absolute;
-			width: $appbar-icon-size + 2*$appbar-icon-padding;
-			height: $appbar-icon-size + 2*$appbar-icon-padding;
-			padding: $appbar-icon-padding;
-			margin: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
-			z-index: 1;
-			color: white;
-			*/
 		}
 	}
 
@@ -90,17 +82,33 @@
 	.drawer_toggle_temporary {
 		display:none;
 
-		&:checked ~ nav {
+		&:checked ~ div {
 			width: $drawer-width;
 		}
 	}
 
-	
+	// right-hand side drawer (in ltr)
+	&.drawer_end {
+		float: right;
+		@include mdc-rtl {
+			float: left;
+		}
+		.drawer_button_persistent,
+		.drawer_button_temporary {
+			right: 0;
+			left: initial;
+			@include mdc-rtl {
+				left: 0;
+				right: initial;
+			}
+		}
+	}
+
 	// PERMANENT
 	&.drawer_permanent {
 		display: inline-flex;
 	
-		>nav {
+		>div {
 			@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
 			box-sizing: border-box;
 			overflow: hidden;
@@ -112,7 +120,7 @@
 		}
 
 		&.drawer_floating {
-			>nav {
+			>div {
 				@include mdc-rtl-reflexive-box(border, right, none);
 				background: none;
 			}
@@ -120,12 +128,12 @@
 
 		// right-hand side drawer (in ltr)
 		&.drawer_end {
-			>nav {
+			>div {
 				@include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
 			}
 	
 			&.drawer_floating {
-				>nav {
+				>div {
 					@include mdc-rtl-reflexive-box(border, left, none);
 				}
 			}
@@ -135,26 +143,36 @@
 	// RESPONSIVE or PERSISTENT
 	&.drawer_responsive,
 	&.drawer_persistent {
-		>nav {
+		&.drawer_fixed {
+			position: sticky;
+			top: 64px + 16px;
+		}
+
+		>div {
+//			@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
 			width: 0;
-			will-change: width, transform;
-			transition: all 300ms;
+			will-change: width;
+			transition: width 300ms;
 
 			>header,
 			>nav,
 			>footer {
+				width: $drawer-width;
 				will-change: transform;
 				transform: translateX(-$drawer-width);
 				@include mdc-rtl {
 					transform: translateX($drawer-width);
 				}
-				transition: all 300ms;
+				transition: transform 300ms;
 			}
 		}
+		
 		.drawer_toggle_persistent {
-			&:checked ~ nav {
+			&:checked ~ div {
 				@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-				@include mdc-rtl-reflexive-position(left, 0);
+				
+				// @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+				// @include mdc-rtl-reflexive-position(left, 0);
 				//				@include mdc-slideable-drawer;
 				height: 100%;
 				box-sizing: border-box;
@@ -171,8 +189,18 @@
 			}
 		}
 
+		&.drawer_floating {
+			.drawer_toggle_persistent {
+				&:checked ~ div {
+					@include mdc-rtl-reflexive-box(border, right, none);
+				}
+			}
+		}
+
+		// right-hand side drawer (in ltr)
 		&.drawer_end {
-			>nav {
+			>div {
+				transition: width 300ms;
 				>header,
 				>nav,
 				>footer {
@@ -181,20 +209,33 @@
 						transform: translateX(-$drawer-width);
 					}
 				}
-			}			
+			}
+			.drawer_toggle_persistent {
+				&:checked ~ div {
+					@include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
+				}
+			}
+
+			&.drawer_floating {
+				.drawer_toggle_persistent {
+					&:checked ~ div {
+						@include mdc-rtl-reflexive-box(border, left, none);
+					}
+				}
+			}
 		}
 	}
 
 	// RESPONSIVE or TEMPORARY
 	&.drawer_responsive,
 	&.drawer_temporary {
-		>nav {
+		>div {
 			width: 0;
-			will-change: width, transform;
-			transition: all 300ms;
+			will-change: width;
+			transition: width 300ms;
 		}
 		.drawer_toggle_temporary {
-			&:checked ~ nav {
+			&:checked ~ div {
 				@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
 				@include mdc-rtl-reflexive-position(left, 0);
 				//				@include mdc-slideable-drawer;
