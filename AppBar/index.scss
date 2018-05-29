@@ -43,6 +43,7 @@
     width: 100%;
 
     >section {
+      @include appbar-fill-color-accessible(primary);
       display: inline-flex;
       flex: 1 1 auto;
       align-items: center;
@@ -246,10 +247,10 @@
     }
 
     &.appbar_dense {
-      height: $appbar-dense-row-height;
+      height: $appbar-dense-row-height + 16px;
 
       &:before {
-        top: $appbar-dense-row-height;
+        top: $appbar-dense-row-height - 16px;
       }
     }  
 
