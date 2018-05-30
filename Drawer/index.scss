@@ -27,270 +27,57 @@
 @import "./variables";
 
 .solid_drawer {
-	@include mdc-drawer-base_;
-	@include mdc-drawer-ink-color($drawer-ink-color);
-	@include mdc-drawer-fill-color($drawer-fill-color);
+	@include solid_drawer_base();
 
-	float: left;
-	@include mdc-rtl {
-		float: right;
-	}
-	height: 100%;
-	z-index: 2;
-
-	&~ main {
-		display: table-cell;
-	}
-
-	>div {
-		padding-bottom: 99999px;
-		margin-bottom: -99999px;
-		overflow: hidden;
-
-		>nav {
-			width: $drawer-width;
-		}
-
-		&:after {
-			content:'';
-			display: block;
-			height: 1px;
-		}
-	}
-
-	.drawer_button_persistent,
-	.drawer_button_temporary {
-		position: absolute;
-		top: 0;
-		cursor: pointer;
-		z-index: 1;
-		user-select: none;
-		left: 0;
-		@include mdc-rtl {
-			right: 0;
-		}
-			
-		>span {
-			@include appbar-icon_;
-			@include appbar-fill-color-accessible(primary);
-			margin: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
-		}
-	}
-
-	.drawer_toggle_persistent,
-	.drawer_toggle_temporary {
-		display:none;
-
-		&:checked ~ div {
-			width: $drawer-width;
-		}
-	}
-
-	// right-hand side drawer (in ltr)
-	&.drawer_end {
-		float: right;
-		@include mdc-rtl {
-			float: left;
-		}
-		.drawer_button_persistent,
-		.drawer_button_temporary {
-			right: 0;
-			left: initial;
-			@include mdc-rtl {
-				left: 0;
-				right: initial;
-			}
-		}
-	}
-
-	// PERMANENT
 	&.drawer_permanent {
-		display: inline-flex;
-	
-		>div {
-			@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-			box-sizing: border-box;
-			overflow: hidden;
-			width: $drawer-width;
-			display: inline-flex;
-			flex-direction: column;
-			flex: 0 0 auto;
-			vertical-align: top;
-		}
-
-		&.drawer_floating {
-			>div {
-				@include mdc-rtl-reflexive-box(border, right, none);
-				background: none;
-			}
-		}
-
-		// right-hand side drawer (in ltr)
-		&.drawer_end {
-			>div {
-				@include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
-			}
-	
-			&.drawer_floating {
-				>div {
-					@include mdc-rtl-reflexive-box(border, left, none);
-				}
-			}
-		}
+		@include solid_drawer_permanent();
 	}
-	
-	// PERSISTENT
+
 	&.drawer_persistent {
-		&.drawer_fixed {
-			position: sticky;
-			top: $appbar-row-height + 16px;
-			.drawer_button_persistent {
-					// top: -($appbar-row-height + 16px);
-			}		
-		}
-
-		>div {
-			width: 0;
-			will-change: width;
-			transition: width 250ms;
-
-			>nav {
-				width: $drawer-width;
-				will-change: transform;
-				transform: translateX(-$drawer-width);
-				@include mdc-rtl {
-					transform: translateX($drawer-width);
-				}
-				transition: transform 250ms;
-			}
-		}
-		
-		.drawer_toggle_persistent {
-			&:checked ~ div {
-				@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-				
-				// @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-				// @include mdc-rtl-reflexive-position(left, 0);
-				//				@include mdc-slideable-drawer;
-				height: 100%;
-				box-sizing: border-box;
-				overflow: hidden;
-				display: flex;
-				flex-direction: column;
-				touch-action: none;
-
-				>nav {
-					transform: translateX(0);
-				}
-			}
-		}
-
-		&.drawer_floating {
-			.drawer_toggle_persistent {
-				&:checked ~ div {
-					@include mdc-rtl-reflexive-box(border, right, none);
-				}
-			}
-		}
-
-		// right-hand side drawer (in ltr)
-		&.drawer_end {
-			>div {
-				transition: width 250ms;
-				>nav {
-					transform: translateX($drawer-width);
-					@include mdc-rtl {
-						transform: translateX(-$drawer-width);
-					}
-				}
-			}
-			.drawer_toggle_persistent {
-				&:checked ~ div {
-					@include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
-				}
-			}
-
-			&.drawer_floating {
-				.drawer_toggle_persistent {
-					&:checked ~ div {
-						@include mdc-rtl-reflexive-box(border, left, none);
-					}
-				}
-			}
-		}
+		@include solid_drawer_persistent();
 	}
 
-	// TEMPORARY
 	&.drawer_temporary {
-		position: absolute;
+		@include solid_drawer_temporary();
+	}
+}
 
-		.drawer_button_temporary {
-			background: rgba(0,0,0,0);
-			will-change: background;
-			transition: background 250ms;
+@media(min-width: $appbar-tablet-breakpoint + 1px) {
+	.solid_drawer.drawer_responsive {
+		&.drawer_end {
 			z-index: 2;
 		}
-
-		>div {
-			width: $drawer-width;
-			position: fixed;
-			top: 0;
-			bottom: 0;
-			@include mdc-rtl-reflexive-position(left, 0);
-			@include mdc-drawer-fill-color($drawer-fill-color);
-			@include mdc-drawer-ink-color($drawer-ink-color);
-			@include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-			overflow: hidden;
-			display: flex;
-			flex-direction: column;
-			z-index: 3;
-			will-change: transform;
-			transition: transform 250ms;
-			transform: translateX(-$drawer-width);
-			@include mdc-rtl {
-				transform: translateX($drawer-width);
-			}
-		}
-
-		&.drawer_end {
-			>div {
-				@include mdc-rtl-reflexive-position(right, 0);
-				@include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
-				transform: translateX($drawer-width);
-				@include mdc-rtl {
-					transform: translateX(-$drawer-width);
-				}
-			}
-		}
-
-		.drawer_toggle_temporary {
-			&:checked {
-				&~.drawer_button_temporary {
-					position: fixed;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					background: rgba(0,0,0,0.45);
-					cursor: default;
-					>span {
-						display: none;
-					}
-				}
-				&~ div {
-								//				@include mdc-slideable-drawer;
-					transform: translateX(0);
-					box-shadow: -10px 0px 100px rgba(0, 0, 0, 0.35);
-					@include mdc-rtl {
-						box-shadow: 10px 0px 100px rgba(0, 0, 0, 0.35);
-					}
-				}
-			}
-		}
-
+		@include solid_drawer_persistent();
 		.drawer_button_temporary {
-				top: -($appbar-row-height + 16px);
-		}		
+			display: none;
+		}
 	}
+}
+
+@media(min-width: $appbar-mobile-breakpoint + 1px) and (max-width: $appbar-tablet-breakpoint) {
+	.solid_drawer.drawer_responsive:not(.drawer_end) {
+		@include solid_drawer_persistent();
+		.drawer_button_temporary {
+			display: none;
+		}
+	}
+	.solid_drawer.drawer_responsive.drawer_end {
+		@include solid_drawer_temporary();
+		.drawer_button_persistent {
+			display: none;
+		}
+	}
+}
+
+@media(max-width: $appbar-mobile-breakpoint) {
+	.solid_drawer.drawer_responsive {
+		@include solid_drawer_temporary();
+		.drawer_button_persistent {
+			display: none;
+		}
+	}
+}
+
 
 /*
 		.drawer_toggle_persistent {
@@ -457,7 +244,7 @@
 		}
 	}
 */
-}
+
 
 
 .appbar_dense {

@@ -22,6 +22,7 @@
 @import "../theme/variables";
 @import "../typography/mixins";
 
+/*
 @mixin mdc-drawer-toolbar-spacer_() {
   .mdc-drawer__toolbar-spacer {
     display: flex;
@@ -40,7 +41,9 @@
     }
   }
 }
+*/
 
+/*
 @mixin mdc-drawer-header_() {
   // Use aspect ratio trick to maintain 16:9 aspect ratio on the header
   // styline things header is a type
@@ -68,6 +71,7 @@
   }
   // stylelint-enable selector-max-type
 }
+*/
 
 @mixin mdc-drawer-list_() {
   .list_item {
@@ -85,8 +89,8 @@
 }
 
 @mixin mdc-drawer-base_() {
-  @include mdc-drawer-toolbar-spacer_;
-  @include mdc-drawer-header_;
+//  @include mdc-drawer-toolbar-spacer_;
+//  @include mdc-drawer-header_;
   @include mdc-drawer-list_;
 }
 
@@ -107,4 +111,282 @@
 @mixin mdc-drawer-fill-color-accessible($color) {
   @include mdc-drawer-ink-color(mdc-theme-accessible-ink-color($color));
   @include mdc-drawer-fill-color($color);
+}
+
+@mixin solid_drawer_base() {
+  @include mdc-drawer-base_;
+  @include mdc-drawer-ink-color($drawer-ink-color);
+  @include mdc-drawer-fill-color($drawer-fill-color);
+
+  float: left;
+  @include mdc-rtl {
+    float: right;
+  }
+  height: 100%;
+
+  &~ main {
+    display: table-cell;
+  }
+
+  >div {
+    padding-bottom: 99999px;
+    margin-bottom: -99999px;
+    overflow: hidden;
+
+    >nav {
+      width: $drawer-width;
+    }
+
+    &:after {
+      content:'';
+      display: block;
+      height: 1px;
+    }
+  }
+
+  .drawer_button_persistent,
+  .drawer_button_temporary {
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    z-index: 2;
+    user-select: none;
+
+    @include mdc-rtl-reflexive-position(left, 0);
+    // left: 0;
+    // @include mdc-rtl {
+    //   right: 0;
+    // }
+      
+    >span {
+      @include appbar-icon_;
+      @include appbar-fill-color-accessible(primary);
+      margin: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
+    }
+  }
+
+  .drawer_toggle_persistent,
+  .drawer_toggle_temporary {
+    display:none;
+  }
+
+  &.drawer_persistent .drawer_toggle_persistent:checked ~ div,
+  &.drawer_temporary .drawer_toggle_temporary:checked ~ div {
+    width: $drawer-width;
+  }
+
+  // right-hand side drawer (in ltr)
+  &.drawer_end {
+    float: right;
+    @include mdc-rtl {
+      float: left;
+    }
+    .drawer_button_persistent,
+    .drawer_button_temporary {
+      z-index: 1;
+      right: 0;
+      left: initial;
+      @include mdc-rtl {
+        left: 0;
+        right: initial;
+      }
+    }
+  }
+}
+
+
+@mixin solid_drawer_permanent() {
+  display: inline-flex;
+
+  >div {
+    @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+    box-sizing: border-box;
+    overflow: hidden;
+    width: $drawer-width;
+    display: inline-flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    vertical-align: top;
+  }
+
+  &.drawer_floating {
+    >div {
+      @include mdc-rtl-reflexive-box(border, right, none);
+      background: none;
+    }
+  }
+
+  // right-hand side drawer (in ltr)
+  &.drawer_end {
+    >div {
+      @include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
+    }
+
+    &.drawer_floating {
+      >div {
+        @include mdc-rtl-reflexive-box(border, left, none);
+      }
+    }
+  }
+}
+
+
+@mixin solid_drawer_persistent() {
+  &.drawer_fixed {
+    position: sticky;
+    top: $appbar-row-height + 16px;
+    .drawer_button_persistent {
+        // top: -($appbar-row-height + 16px);
+    }		
+  }
+
+  >div {
+    width: 0;
+    will-change: width;
+    transition: width 250ms;
+
+    >nav {
+      width: $drawer-width;
+      will-change: transform;
+      transform: translateX(-$drawer-width);
+      @include mdc-rtl {
+        transform: translateX($drawer-width);
+      }
+      transition: transform 250ms;
+    }
+  }
+  
+  .drawer_toggle_persistent {
+    &:checked ~ div {
+      @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+      
+      // @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+      // @include mdc-rtl-reflexive-position(left, 0);
+      //				@include mdc-slideable-drawer;
+      width: $drawer-width;
+      height: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      touch-action: none;
+
+      >nav {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &.drawer_floating {
+    .drawer_toggle_persistent {
+      &:checked ~ div {
+        @include mdc-rtl-reflexive-box(border, right, none);
+      }
+    }
+  }
+
+  // right-hand side drawer (in ltr)
+  &.drawer_end {
+    >div {
+      transition: width 250ms;
+      >nav {
+        transform: translateX($drawer-width);
+        @include mdc-rtl {
+          transform: translateX(-$drawer-width);
+        }
+      }
+    }
+    .drawer_toggle_persistent {
+      &:checked ~ div {
+        @include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
+      }
+    }
+
+    &.drawer_floating {
+      .drawer_toggle_persistent {
+        &:checked ~ div {
+          @include mdc-rtl-reflexive-box(border, left, none);
+        }
+      }
+    }
+  }
+}
+
+
+@mixin solid_drawer_temporary() {
+  position: absolute;
+
+  .drawer_button_temporary {
+    background: rgba(0,0,0,0);
+    will-change: background;
+    transition: background 180ms; // transition a bit faster, to prevent 'afterglow' of label in button form
+//    z-index: 2;
+  }
+
+  >div {
+    width: $drawer-width;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    @include mdc-rtl-reflexive-position(left, 0);
+    @include mdc-drawer-fill-color($drawer-fill-color);
+    @include mdc-drawer-ink-color($drawer-ink-color);
+    @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    will-change: transform;
+    transition: transform 250ms;
+    transform: translateX(-$drawer-width);
+    @include mdc-rtl {
+      transform: translateX($drawer-width);
+    }
+  }
+
+  &.drawer_end {
+    .drawer_button_temporary {
+      z-index: 1;
+    }
+    .drawer_toggle_temporary:checked ~ .drawer_button_temporary {
+      z-index: 2;
+    }
+    >div {
+      @include mdc-rtl-reflexive-position(right, 0);
+      @include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
+      transform: translateX($drawer-width);
+      @include mdc-rtl {
+        transform: translateX(-$drawer-width);
+      }
+    }
+  }
+
+  .drawer_toggle_temporary {
+    &:checked {
+      &~ .drawer_button_temporary {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(mdc-theme-prop-value($drawer-scrim-color), $drawer-scrim-opacity);
+        cursor: default;
+        >span {
+          display: none;
+        }
+      }
+      &~ div {
+              //				@include mdc-slideable-drawer;
+        transform: translateX(0);
+        box-shadow: -10px 0px 100px rgba(0, 0, 0, 0.35);
+        @include mdc-rtl {
+          box-shadow: 10px 0px 100px rgba(0, 0, 0, 0.35);
+        }
+      }
+    }
+  }
+
+  .drawer_button_temporary {
+      top: -($appbar-row-height + 16px);
+  }		
 }
