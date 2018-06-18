@@ -17,17 +17,13 @@
 // 
 
 module.exports = {
-	solid_drawer: 'solid_drawer',
-	drawer_temporary: 'drawer_temporary',
-	drawer_floating: 'drawer_floating',
-	drawer_permanent: 'drawer_permanent',
-	drawer_persistent: 'drawer_persistent',
-	drawer_responsive: 'drawer_responsive',
-	drawer_fixed: 'drawer_fixed',
-	drawer_end: 'drawer_end',
-	drawer_content: 'drawer_content',
-	drawer_button_persistent: 'drawer_button_persistent',
-	drawer_button_temporary: 'drawer_button_temporary',
-	drawer_toggle_persistent: 'drawer_toggle_persistent',
-	drawer_toggle_temporary: 'drawer_toggle_temporary',
-};
+	drawer: 'drawer',
+	temporary: 'temporary',
+	floating: 'floating',
+	permanent: 'permanent',
+	persistent: 'persistent',
+	responsive: 'responsive',
+	fixed: 'fixed',
+	start: 'start',
+	end: 'end',
+}

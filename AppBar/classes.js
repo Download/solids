@@ -17,19 +17,19 @@
 // 
 
 module.exports = {
-	solid_appbar: 'solid_appbar',
-	appbar_fixed: 'appbar_fixed',
-	appbar_dense: 'appbar_dense',
-	appbar_prominent: 'appbar_prominent',
-	appbar_short: 'appbar_short',
-	appbar_short_collapsed: 'appbar_short_collapsed',
-	appbar_short_has_action: 'appbar_short_has_action',
-	appbar_shrink: 'appbar_shrink',
-	appbar_floating: 'appbar_floating',
-	appbar_start: 'appbar_start',
-	appbar_end: 'appbar_end',
-	appbar_reserve: 'appbar_reserve',
-	appbar_title: 'appbar_title',
-	appbar_icon: 'appbar_icon',
-	appbar_action: 'appbar_action'
+	appbar: 'appbar',
+	fixed: 'appbar_fixed',
+	dense: 'appbar_dense',
+	prominent: 'prominent',
+	short: 'short',
+	collapsed: 'collapsed',
+	has_action: 'has_action',
+	shrink: 'shrink',
+	floating: 'floating',
+	start: 'start',
+	end: 'end',
+	reserve: 'reserve',
+	title: 'title',
+	icon: 'icon',
+	action: 'action'
 };

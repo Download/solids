@@ -29,37 +29,37 @@
 }
 
 @mixin list_item_secondary_text_ink_color($color) {
-  .list_item_secondary_text {
+  .secondary_text {
     @include mdc-theme-prop(color, $color);
   }
 }
 
 @mixin list_item_graphic_fill_color($color) {
-  .list_item_graphic {
+  .graphic {
     @include mdc-theme-prop(background-color, $color);
   }
 }
 
 @mixin list_item_graphic_ink_color($color) {
-  .list_item_graphic {
+  .graphic {
     @include mdc-theme-prop(color, $color);
   }
 }
 
 @mixin list_item_meta_ink_color($color) {
-  .list_item_meta {
+  .meta {
     @include mdc-theme-prop(color, $color);
   }
 }
 
 @mixin list_divider_color($color) {
-  .list_divider {
+  .divider {
     @include mdc-theme-prop(border-bottom-color, $color);
   }
 }
 
 @mixin list_group_subheader_ink_color($color) {
-  .list_group_subheader {
+  .subheader {
     @include mdc-theme-prop(color, $color);
   }
 }

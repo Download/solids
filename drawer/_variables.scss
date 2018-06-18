@@ -26,5 +26,10 @@ $drawer-scrim-opacity: .6 !default;
 
 $drawer-width: $mdc-theme-sidebar-width !default;
 
-$drawer-mobile-breakpoint: 599px !default;
-$drawer-desktop-breakpoint: 959px !default;
+// $drawer-mobile-breakpoint: 639px !default;
+// $drawer-desktop-breakpoint: 959px !default;
+
+$drawer-transition-duration: 250ms;
+
+$drawer-header-fill-color: $mdc-theme-primary;
+$drawer-header-ink-color: $mdc-theme-on-primary;

@@ -29,11 +29,11 @@
       // used in conjunction with `.mdc-ripple-upgraded`. Since MDCRippleFoundation checks to ensure
       // that custom properties are supported within the browser before adding this class, we can
       // safely use them without a fallback.
-      transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1);
+      transform: translate(0) scale(0.5);
     }
 
     to {
-      transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1));
+      transform: translate(0) scale(1);
     }
   }
 
@@ -44,14 +44,14 @@
     }
 
     to {
-      opacity: var(--mdc-ripple-fg-opacity, 0);
+      opacity: 0;
     }
   }
 
   @keyframes mdc-ripple-fg-opacity-out {
     from {
       animation-timing-function: linear;
-      opacity: var(--mdc-ripple-fg-opacity, 0);
+      opacity: 0;
     }
 
     to {

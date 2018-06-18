@@ -22,59 +22,42 @@
 @import "../theme/variables";
 @import "../typography/mixins";
 
-/*
-@mixin mdc-drawer-toolbar-spacer_() {
-  .mdc-drawer__toolbar-spacer {
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    flex-shrink: 0;
-    align-items: center;
-    box-sizing: border-box;
-    height: 56px;
-    padding: 16px;
-    border-bottom: 1px solid rgba(0, 0, 0, .12);
 
-    // TODO(sgomes): replace with global breakpoints when we have them
-    @media (min-width: 600px) {
-      height: 64px;
-    }
+@mixin mdc-drawer-fill-color($color) {
+  @include mdc-theme-prop(background-color, $color);
+}
+
+
+@mixin mdc-drawer-ink-color($color) {
+  @include mdc-theme-prop(color, $color);
+}
+
+
+@mixin mdc-drawer-scrim-color($color, $opacity) {
+  &::before {
+    background-color: rgba(mdc-theme-prop-value($color), $opacity);
   }
 }
-*/
 
-/*
-@mixin mdc-drawer-header_() {
-  // Use aspect ratio trick to maintain 16:9 aspect ratio on the header
-  // styline things header is a type
-  // stylelint-disable selector-max-type
-  .mdc-drawer__header {
-    position: relative;
-  }
 
-  .mdc-drawer__header::before {
-    display: block;
-    padding-top: 9 / 16 * 100%;
-    content: "";
-  }
-
-  .mdc-drawer__header-content {
-    display: flex;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    align-items: flex-end;
-    box-sizing: border-box;
-    padding: 16px;
-  }
-  // stylelint-enable selector-max-type
+@mixin mdc-drawer-fill-color-accessible($color) {
+  @include mdc-drawer-ink-color(mdc-theme-accessible-ink-color($color));
+  @include mdc-drawer-fill-color($color);
 }
-*/
 
-@mixin mdc-drawer-list_() {
-  .list_item {
+
+@mixin solid_drawer_base() {
+  @include mdc-drawer-ink-color($drawer-ink-color);
+  @include mdc-drawer-fill-color($drawer-fill-color);
+  @include typography(subtitle1);  
+
+  float: left;
+  @include mdc-rtl {
+    float: right;
+  }
+  overflow: hidden;
+
+  .item {
     @include typography(subtitle2);
 
     position: relative;
@@ -83,73 +66,51 @@
     text-decoration: none;
   }
 
-  .list_item_graphic {
+  .graphic {
     color: rgba(0, 0, 0, .54);
   }
-}
-
-@mixin mdc-drawer-base_() {
-//  @include mdc-drawer-toolbar-spacer_;
-//  @include mdc-drawer-header_;
-  @include mdc-drawer-list_;
-}
-
-@mixin mdc-drawer-fill-color($color) {
-  @include mdc-theme-prop(background-color, $color);
-}
-
-@mixin mdc-drawer-ink-color($color) {
-  @include mdc-theme-prop(color, $color);
-}
-
-@mixin mdc-drawer-scrim-color($color, $opacity) {
-  &::before {
-    background-color: rgba(mdc-theme-prop-value($color), $opacity);
-  }
-}
-
-@mixin mdc-drawer-fill-color-accessible($color) {
-  @include mdc-drawer-ink-color(mdc-theme-accessible-ink-color($color));
-  @include mdc-drawer-fill-color($color);
-}
-
-@mixin solid_drawer_base() {
-  @include mdc-drawer-base_;
-  @include mdc-drawer-ink-color($drawer-ink-color);
-  @include mdc-drawer-fill-color($drawer-fill-color);
-
-  float: left;
-  @include mdc-rtl {
-    float: right;
-  }
-  height: 100%;
-
-  &~ main {
-    display: table-cell;
-  }
-
+  
   >div {
-    padding-bottom: 99999px;
-    margin-bottom: -99999px;
-    overflow: hidden;
+    >div {
+      >nav {
+        width: $drawer-width;
+        box-sizing: border-box;
+        width: $drawer-width;
+        display: inline-flex;
+        flex-direction: column;
+        flex: 0 0 auto;
+        vertical-align: top;
 
-    >nav {
-      width: $drawer-width;
+        >header {
+          display: none;
+        }
+      }
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        background: yellow; 
+        
+      }
     }
 
-    &:after {
+    &::after {
       content:'';
       display: block;
       height: 1px;
     }
   }
 
-  .drawer_button_persistent,
-  .drawer_button_temporary {
+  >label {
     position: absolute;
-    top: 0;
+    // width: 
+    top: -($appbar-row-height + 16px);
+    padding: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
     cursor: pointer;
-    z-index: 2;
+    z-index: 1;
     user-select: none;
 
     @include mdc-rtl-reflexive-position(left, 0);
@@ -158,32 +119,33 @@
     //   right: 0;
     // }
       
-    >span {
+    >a {
       @include appbar-icon_;
       @include appbar-fill-color-accessible(primary);
-      margin: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
     }
   }
 
-  .drawer_toggle_persistent,
-  .drawer_toggle_temporary {
+  >input[type=checkbox] {
     display:none;
-  }
-
-  &.drawer_persistent .drawer_toggle_persistent:checked ~ div,
-  &.drawer_temporary .drawer_toggle_temporary:checked ~ div {
-    width: $drawer-width;
+    &:checked {
+      // &~ label {
+      //   z-index: 2;
+      // }
+      &~ div >div,
+      &~ div >div::before {
+        width: $drawer-width;
+      }
+    }
   }
 
   // right-hand side drawer (in ltr)
-  &.drawer_end {
+  &.end {
     float: right;
     @include mdc-rtl {
       float: left;
     }
-    .drawer_button_persistent,
-    .drawer_button_temporary {
-      z-index: 1;
+    >label {
+//      z-index: 0;
       right: 0;
       left: initial;
       @include mdc-rtl {
@@ -191,6 +153,10 @@
         right: initial;
       }
     }
+  }
+
+  &.fixed {
+    z-index: 1;
   }
 }
 
@@ -200,16 +166,10 @@
 
   >div {
     @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-    box-sizing: border-box;
     overflow: hidden;
-    width: $drawer-width;
-    display: inline-flex;
-    flex-direction: column;
-    flex: 0 0 auto;
-    vertical-align: top;
   }
 
-  &.drawer_floating {
+  &.floating {
     >div {
       @include mdc-rtl-reflexive-box(border, right, none);
       background: none;
@@ -217,12 +177,12 @@
   }
 
   // right-hand side drawer (in ltr)
-  &.drawer_end {
+  &.end {
     >div {
       @include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
     }
 
-    &.drawer_floating {
+    &.floating {
       >div {
         @include mdc-rtl-reflexive-box(border, left, none);
       }
@@ -232,62 +192,70 @@
 
 
 @mixin solid_drawer_persistent() {
-  &.drawer_fixed {
+  &.fixed {
     position: sticky;
-    top: $appbar-row-height + 16px;
-    .drawer_button_persistent {
-        // top: -($appbar-row-height + 16px);
-    }		
+    top: 16px;
+/*
+    >label {
+      top: -($appbar-row-height + 16px);
+    }
+*/
   }
 
-  >div {
+  >div >div,
+  >div >div::before {
     width: 0;
     will-change: width;
     transition: width 250ms;
+  }
 
-    >nav {
-      width: $drawer-width;
-      will-change: transform;
-      transform: translateX(-$drawer-width);
-      @include mdc-rtl {
-        transform: translateX($drawer-width);
-      }
-      transition: transform 250ms;
+  >div >div >nav {
+    will-change: transform;
+    transform: translateX(-$drawer-width);
+    @include mdc-rtl {
+      transform: translateX($drawer-width);
     }
+    transition: transform $drawer-transition-duration + 10ms; // transition a bit slower, to prevent flicker on Firefox.
   }
   
-  .drawer_toggle_persistent {
+  >input[type=checkbox] {
     &:checked ~ div {
-      @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+      overflow: hidden;
+    }
+
+    &:checked ~ div >div::before {
       
       // @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
       // @include mdc-rtl-reflexive-position(left, 0);
       //				@include mdc-slideable-drawer;
-      width: $drawer-width;
-      height: 100%;
-      box-sizing: border-box;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      touch-action: none;
+//      width: $drawer-width;
+//      height: 100%;
+//      box-sizing: border-box;
+//      overflow: hidden;
+    }
 
+    &:checked ~ div >div {
       >nav {
         transform: translateX(0);
       }
     }
+
+    &:checked ~ div >div::before {
+      @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+    }    
   }
 
-  &.drawer_floating {
-    .drawer_toggle_persistent {
-      &:checked ~ div {
+  &.floating {
+    >input[type=checkbox] {
+      &:checked ~ div >div {
         @include mdc-rtl-reflexive-box(border, right, none);
       }
     }
   }
 
   // right-hand side drawer (in ltr)
-  &.drawer_end {
-    >div {
+  &.end {
+    >div >div {
       transition: width 250ms;
       >nav {
         transform: translateX($drawer-width);
@@ -296,15 +264,15 @@
         }
       }
     }
-    .drawer_toggle_persistent {
-      &:checked ~ div {
+    >input[type=checkbox] {
+      &:checked ~ div >div {
         @include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
       }
     }
 
-    &.drawer_floating {
-      .drawer_toggle_persistent {
-        &:checked ~ div {
+    &.floating {
+      >input[type=checkbox] {
+        &:checked ~ div >div {
           @include mdc-rtl-reflexive-box(border, left, none);
         }
       }
@@ -316,11 +284,10 @@
 @mixin solid_drawer_temporary() {
   position: absolute;
 
-  .drawer_button_temporary {
+  >label {
     background: rgba(0,0,0,0);
     will-change: background;
-    transition: background 180ms; // transition a bit faster, to prevent 'afterglow' of label in button form
-//    z-index: 2;
+    transition: background $drawer-transition-duration - 100ms; // transition a bit faster, to prevent 'afterglow' of label in button form
   }
 
   >div {
@@ -331,25 +298,65 @@
     @include mdc-rtl-reflexive-position(left, 0);
     @include mdc-drawer-fill-color($drawer-fill-color);
     @include mdc-drawer-ink-color($drawer-ink-color);
-    @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
     z-index: 3;
     will-change: transform;
-    transition: transform 250ms;
+    transition: transform 200ms;
     transform: translateX(-$drawer-width);
     @include mdc-rtl {
       transform: translateX($drawer-width);
     }
+
+    >div {
+      // // make this div a scroll-blocking layer
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto; // allow scroll
+      width: $drawer-width + 30px; // hide scrollbar
+      // // make sure there is tall content to force a scrollbar
+      &::after {
+        content: '';
+        display: block;
+        height: 10000px;
+      }
+      
+      >nav {
+        position: sticky; // stick to top so it does not scroll
+        top: 0;
+        >header {
+          display: block;
+          position: relative;
+          &:before {
+            content: '';
+            display: block;
+            padding-top: 56.25%;
+          }
+          >div {
+            display: flex;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            align-items: flex-end;
+            box-sizing: border-box;
+            padding: 16px;
+            background-color: $drawer-header-fill-color;
+            color: $drawer-header-ink-color;
+          }
+        }
+      }
+    }
   }
 
-  &.drawer_end {
-    .drawer_button_temporary {
-      z-index: 1;
-    }
-    .drawer_toggle_temporary:checked ~ .drawer_button_temporary {
-      z-index: 2;
+  &.end {
+    @include mdc-rtl-reflexive-position(right, 0);
+
+    >input[type=checkbox]:checked ~ label {
+//      z-index: 2;
     }
     >div {
       @include mdc-rtl-reflexive-position(right, 0);
@@ -361,21 +368,43 @@
     }
   }
 
-  .drawer_toggle_temporary {
+  >input[type=checkbox] {
     &:checked {
-      &~ .drawer_button_temporary {
+      &~ label {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
+        padding: 0;
         background: rgba(mdc-theme-prop-value($drawer-scrim-color), $drawer-scrim-opacity);
+        overflow: hidden;
         cursor: default;
-        >span {
-          display: none;
+        >a {
+          display: block;
+          width: calc(100% + 100px);
+          height: 100%;
+          overflow-x: hidden;
+          overflow-y: auto;
+          background: transparent;
+          cursor: default;
+          margin-left: -50px;
+          padding: 0;
+          // pointer-events: none;
+          &:before {
+            display: none;
+          }
+          &:after {
+            content: '';
+            display: block;
+            position: initial;
+            height: 10000px;
+            width: 10px;
+            background: red;
+          }
         }
       }
-      &~ div {
+      &~ div >div {
               //				@include mdc-slideable-drawer;
         transform: translateX(0);
         box-shadow: -10px 0px 100px rgba(0, 0, 0, 0.35);
@@ -385,8 +414,104 @@
       }
     }
   }
-
+/*
   .drawer_button_temporary {
       top: -($appbar-row-height + 16px);
-  }		
+  }
+*/
 }
+
+
+@mixin solid_drawer_base_appbar_styles() {
+  .solids .appbar.dense {
+    &~ .drawer {
+      >label {
+        top: -($appbar-dense-row-height + 16px);
+        padding: 0 $appbar-section-horizontal-padding;
+      }
+    }
+  
+    &.prominent {
+      &:not(.fixed) { 
+        &~ .drawer {
+          >label {
+            top: -($appbar-dense-row-height*2 + 16px);
+          }
+        }
+      }
+      &.fixed {
+        &~ .drawer {
+          &.fixed {
+            top: $appbar-dense-row-height*2 + 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .solids .appbar.prominent {
+    &:not(.fixed) { 
+      &~ .drawer {
+        >label {
+          top: -($appbar-prominent-row-height + 16px);
+        }
+      }
+    }
+    &.fixed {
+      &~ .drawer {
+        &.fixed {
+          top: $appbar-prominent-row-height + 16px;
+        }
+      }
+    }
+  }
+
+  // .appbar_prominent {
+  //   &~ .solid_drawer {
+  //     >label {
+  //       top: -($appbar-prominent-row-height + 16px);
+  //     }
+  //     // &.drawer_fixed {
+  //     //   // top: $appbar-prominent-row-height + 16px;
+  //     //   // >label {
+  //     //   //   top: -($appbar-prominent-row-height + 16px);
+  //     //   // }
+  //     // }
+  //   }
+  //   &.appbar_shrink {
+  //     &~ .solid_drawer {
+  //       &.drawer_fixed {
+  //         top: $appbar-row-height + 16px;
+  //       }
+  //     }
+  //   }
+  // }
+
+  .solids .appbar.fixed {
+    &~ .drawer {
+      &.fixed {
+        top: $appbar-row-height + 16px;
+      }
+      >label {
+        position: fixed;
+        top: 0;
+      }
+    }
+    /*
+    &.appbar_prominent ~ .solid_drawer {
+      &.drawer_persistent, 
+      &.drawer_temporary,
+      &.drawer_responsive {
+        .drawer_button_persistent,
+        .drawer_button_temporary {
+          >a {
+            top: -($appbar-prominent-row-height + 16px);
+          }
+        }
+      }
+    }
+    */
+  }
+}
+
+

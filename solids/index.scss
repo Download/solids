@@ -16,10 +16,15 @@
 // limitations under these licenses.
 // 
 
-.solid_applayout {
-	min-height: 100%;
-	overflow: -moz-hidden-unscrollable;
-//	display: table;
+@import "../typography/mixins";
+
+.solids {
+	position: relative;
+
+	>main {
+		display: table-cell;
+		padding: 20px;
+	}
 
 	img {
 		max-width: 100%;

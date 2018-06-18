@@ -40,8 +40,8 @@
 }
 
 @mixin appbar-icon-ink-color($color) {
-  .solid_appbar >div >section .appbar_action,
-  .solid_appbar >div >section .appbar_icon {
+  .action,
+  .icon {
     @include mdc-theme-prop(color, $color);
     @include mdc-states($color);
   }
@@ -53,7 +53,7 @@
 
 @mixin appbar-mobile-breakpoint_($mobile-breakpoint: $appbar-mobile-breakpoint) {
   @media (max-width: $mobile-breakpoint) {
-    .solid_appbar {
+    .solids .appbar {
       >div {
         height: $appbar-mobile-row-height;
         >section {
@@ -61,12 +61,12 @@
         }
       }
 
-      &.appbar_short {
+      &.short {
         transition: width 200ms $mdc-animation-standard-curve-timing-function;
-        &.appbar_short_collapsed {
+        &.collapsed {
           transition: width 250ms $mdc-animation-standard-curve-timing-function;
           >div {
-            >section.appbar_end {
+            >section.end {
               @include mdc-rtl-reflexive-box(padding, right, $appbar-short-collapsed-right-icon-padding);
             }
           }
@@ -76,7 +76,7 @@
       &.appbar_prominent {
         >div {
           height: $appbar-prominent-row-height;
-          >section .appbar_title {
+          >section .title {
 //            padding-bottom: $appbar-prominent-mobile-title-bottom-padding;
           }
         }
@@ -85,28 +85,28 @@
       &.appbar_dense.appbar_prominent {
         >div {
           height: $appbar-dense-row-height*2;
-          >section .appbar_title {
+          >section .title {
             padding-bottom: 0;
           }
         }
       }
 
-      &.appbar_fixed {
+      &.fixed {
         height: $appbar-mobile-row-height + 16px;
 
         &:before {
           top: $appbar-mobile-row-height - 16px;
         }
 
-        &.appbar_shrink {
-          &.appbar_prominent {
+        &.shrink {
+          &.prominent {
     //        height: $appbar-prominent-row-height;
             top: -($appbar-prominent-row-height - $appbar-mobile-row-height);
             
             >div {
               >section {
                 height: $appbar-mobile-row-height;
-                &.appbar_start {
+                &.start {
                   top: $appbar-mobile-row-height + 16px;
                 }
               }
@@ -151,4 +151,5 @@
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+  user-select: none;
 }

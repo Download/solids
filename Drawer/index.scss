@@ -16,331 +16,72 @@
 // limitations under these licenses.
 // 
 
-@import "../rtl/mixins";
 @import "../animation/functions";
 @import "../elevation/mixins";
-@import "../appbar/variables";
+@import "../rtl/mixins";
 
-@import "./slidable/mixins";
-@import "./slidable/variables";
+@import "../appbar/variables";
+@import "../appbar/mixins";
+
 @import "./mixins";
 @import "./variables";
 
-.solid_drawer {
+.solids .drawer {
 	@include solid_drawer_base();
+	@include appbar-icon-ink-color(on-primary);
 
-	&.drawer_permanent {
+	&.permanent {
 		@include solid_drawer_permanent();
 	}
 
-	&.drawer_persistent {
+	&.persistent {
 		@include solid_drawer_persistent();
 	}
 
-	&.drawer_temporary {
+	&.temporary {
 		@include solid_drawer_temporary();
 	}
 }
 
 @media(min-width: $appbar-tablet-breakpoint + 1px) {
-	.solid_drawer.drawer_responsive {
-		&.drawer_end {
-			z-index: 2;
-		}
+	.solids .drawer.responsive {
 		@include solid_drawer_persistent();
-		.drawer_button_temporary {
-			display: none;
-		}
 	}
 }
 
 @media(min-width: $appbar-mobile-breakpoint + 1px) and (max-width: $appbar-tablet-breakpoint) {
-	.solid_drawer.drawer_responsive:not(.drawer_end) {
+	.solids .drawer.responsive:not(.end) {
 		@include solid_drawer_persistent();
-		.drawer_button_temporary {
-			display: none;
-		}
 	}
-	.solid_drawer.drawer_responsive.drawer_end {
+	.solids .drawer.responsive.end {
 		@include solid_drawer_temporary();
-		.drawer_button_persistent {
-			display: none;
+		>input[type=checkbox] {
+			&:checked {
+				&~ label {
+					z-index: 2;
+				}
+			}
 		}
 	}
 }
 
 @media(max-width: $appbar-mobile-breakpoint) {
-	.solid_drawer.drawer_responsive {
-		@include solid_drawer_temporary();
-		.drawer_button_persistent {
-			display: none;
+	.solids .drawer {
+		>label {
+			top: -($appbar-mobile-row-height + 16px);
+      padding: $appbar-mobile-section-padding;
 		}
-	}
-}
-
-
-/*
-		.drawer_toggle_persistent {
-			&~ .drawer_button_persistent {
-				background: rgba(0,255,0, 0.3);
-			}
-
-			&~nav {
-				background: rgba(0,0,255, 0.3);
-			}
-
-			&:checked {
-				&~ .drawer_button_persistent {
-					background: rgba(0,255,0, 0.7);
-				}
-
-				&~ nav {
-					background: rgba(0,0,255, 0.7);
-					width: $drawer-width;
-				}
-				@include mdc-rtl {
-					&~nav {
-						@include mdc-slideable-drawer-open;
+		&.responsive {
+			@include solid_drawer_temporary();
+			>input[type=checkbox] {
+				&:checked {
+					&~ label {
+						z-index: 2;
 					}
 				}
 			}
 		}
-
-		&.mdc-drawer--animating {
-			>nav {
-				transition: $mdc-slidable-drawer-transition-close;
-			}
-
-			&.mdc-drawer--open {
-				>nav {
-					transition: $mdc-slidable-drawer-transition-open;
-				}
-			}
-		}
-	}
-
-
-	// TEMPORARY
-	&.drawer_temporary {
-		@include mdc-drawer-scrim-color($drawer-scrim-color, $drawer-scrim-opacity);
-		box-sizing: border-box;
-		overflow: hidden;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-		contain: strict;
-		z-index: 5;
-	
-		// Shaded background
-		&::before {
-			display: block;
-			position: absolute;
-			top: 0;
-			left: 0;
-			box-sizing: border-box;
-			width: 100%;
-			height: 100%;
-			opacity: 0;
-			opacity: var(--mdc-temporary-drawer-opacity, 0);
-			content: "";
-			will-change: opacity;
-		}
-	
-		>nav {
-			@include mdc-elevation(16);
-			@include mdc-rtl-reflexive-position(left, 0);
-			@include mdc-slideable-drawer;
-			display: flex;
-			position: absolute;
-			flex-direction: column;
-			box-sizing: border-box;
-			width: calc(100% - 56px);
-			max-width: 280px;
-			overflow: hidden;
-			touch-action: none;
-	
-			// TODO(sgomes): replace with global breakpoints when we have them
-			@media (min-width: 600px) {
-				width: calc(100% - 64px);
-				max-width: 320px;
-			}
-		}
-	
-		.drawer_content {
-			flex-grow: 1;
-			box-sizing: border-box;
-			margin: 0;
-			overflow-x: hidden;
-			overflow-y: auto;
-			-webkit-overflow-scrolling: touch;
-			touch-action: pan-y;
-		}
-	
-		>footer {
-			@include mdc-elevation(2);
-			flex-shrink: 0;
-		}
-	
-		&.mdc-drawer--open {
-			pointer-events: auto;
-	
-			&::before {
-				opacity: 1;
-				opacity: var(--mdc-temporary-drawer-opacity, 1);
-			}
-	
-			>nav {
-				@include mdc-slideable-drawer-open;
-			}
-	
-			// Specificity fix to ensure that mdc-drawer is not translated off-screen within an RTL context
-			@include mdc-rtl {
-				>nav {
-					@include mdc-slideable-drawer-open;
-				}
-			}
-		}
-	
-		&.mdc-drawer--animating {
-			&::before {
-				transition: mdc-animation-enter(opacity, .3s);
-			}
-	
-			>nav {
-				transition: $mdc-slidable-drawer-transition-close;
-			}
-	
-			&.mdc-drawer--open {
-				>nav {
-					transition: $mdc-slidable-drawer-transition-open;
-				}
-			}
-		}
-	}
-	
-	.mdc-drawer-scroll-lock {
-		overflow: hidden;
-	}
-
-
-	.drawer_button_persistent,
-	.drawer_button_temporary {
-		width: $appbar-icon-size + 2*$appbar-icon-padding;
-		height: $appbar-icon-size + 2*$appbar-icon-padding;
-		margin: 0;
-		padding: 0;
-		z-index: 1;
-	
-		>span {
-			width: $appbar-icon-size + 2*$appbar-icon-padding;
-			height: $appbar-icon-size + 2*$appbar-icon-padding;
-			padding: $appbar-icon-padding;
-			margin: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
-			z-index: 1;
-			color: white;
-		}
-	}
-*/
-
-
-
-.appbar_dense {
-	&~ .solid_drawer {
-		.drawer_button_persistent,
-		.drawer_button_temporary {
-			>span {
-				margin: 0 $appbar-section-horizontal-padding;
-			}
-		}
-		&.drawer_fixed {
-			top: $appbar-dense-row-height + 16px;
-			.drawer_button_persistent,
-			.drawer_button_temporary {
-				top: -($appbar-dense-row-height + 16px);
-			}			
-		}
-	}
-
-	&.appbar_prominent ~ .drawer_fixed {
-		top: $appbar-dense-row-height*2 + 16px;
-		.drawer_button_persistent,
-		.drawer_button_temporary {
-			top: -($appbar-dense-row-height*2 + 16px);
-		}
 	}
 }
 
-.appbar_prominent {
-	&~ .drawer_fixed {
-		top: $appbar-prominent-row-height + 16px;
-		.drawer_button_persistent,
-		.drawer_button_temporary {
-			top: -($appbar-prominent-row-height + 16px);
-		}			
-	}
-}
-
-.appbar_fixed {
-	&~ .solid_drawer {
-		.drawer_button_persistent,
-		.drawer_button_temporary {
-			position: fixed;
-			top: 0;
-			/*
-			width: 0;
-			height: 0;
-
-			>span {
-				position: absolute;
-				top: -($appbar-row-height + 16px);
-			}
-			*/
-		}
-	}
-	&.appbar_prominent ~ .solid_drawer {
-		.drawer_button_persistent,
-		.drawer_button_temporary {
-			top: $appbar-prominent-row-height + 16px;
-			>span {
-				top: -($appbar-prominent-row-height + 16px);
-			}
-		}
-	}
-}
-
-
-/*
-	.drawer_toggle_temporary:checked {
-		&~ .drawer_button_temporary {
-			top: 0;
-			>span {
-				top: 0;
-			}
-		}
-	}
-
-	&.appbar_prominent ~ div .solid_drawer {
-		.drawer_button_persistent,
-		.drawer_button_temporary {
-			top: $appbar-prominent-row-height + 16px;
-			>span {
-				top: -($appbar-prominent-row-height + 16px);
-			}
-		}
-	}
-
-
-	&.appbar_dense.appbar_prominent ~ div .solid_drawer {
-		.drawer_button_persistent,
-		.drawer_button_temporary {
-			top: $appbar-dense-row-height*2 + 16px;
-			>span {
-				top: -($appbar-dense-row-height*2 + 16px);
-			}
-		}
-	}
-}
-*/
+@include solid_drawer_base_appbar_styles();

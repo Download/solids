@@ -16,29 +16,6 @@
 // limitations under these licenses.
 // 
 
-@import "../rtl/mixins";
-@import "../variables";
-@import "../mixins";
-
-$drawer-width: 240px;
-
-.mdc-drawer--permanent {
-  @include mdc-drawer-base_;
-  @include mdc-drawer-ink-color($drawer-ink-color);
-  @include mdc-drawer-fill-color($drawer-fill-color);
-  @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-  @include mdc-rtl-reflexive-position(left, 0);
-
-  display: inline-flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  box-sizing: border-box;
-  width: $drawer-width;
-  overflow: hidden;
-
-  &--floating {
-    @include mdc-rtl-reflexive-box(border, right, none);
-
-    background: none;
-  }
-}
+module.exports = {
+	solids: 'solids',
+};
