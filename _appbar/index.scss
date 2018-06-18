@@ -26,8 +26,9 @@
 
 // postcss-bem-linter: define top-app-bar
 .solids .appbar {
-  @include appbar-fill-color-accessible(primary);
-  @include appbar-icon-ink-color(on-primary);
+  @include appbar-fill-color($appbar-fill-color);
+  @include appbar-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
+  @include appbar-icon-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
 
   display: flex;
   flex-direction: column;
@@ -46,7 +47,7 @@
     z-index: 0; 
 
     >section {
-      @include appbar-fill-color-accessible(primary);
+//      @include appbar-fill-color-accessible(primary);
       display: inline-flex;
       flex: 1 1 auto;
       align-items: center;
@@ -116,6 +117,9 @@
         }
       }
     }
+    &~ main {
+      height: calc(100vh - #{$appbar-mobile-row-height});
+    }
   }
 
   &.collapsed {
@@ -155,6 +159,10 @@
         }
       }
     }
+
+    &~ main {
+      height: calc(100vh - #{$appbar-dense-row-height});
+    }
   }
 
   &.prominent {
@@ -169,6 +177,9 @@
           align-self: flex-start;
         }
       }
+    }
+    &~ main {
+      height: calc(100vh - #{$appbar-prominent-row-height});
     }
   }
 
@@ -188,6 +199,7 @@
 
         .title {
           @include mdc-rtl-reflexive-box(padding, left, $appbar-title-left-padding);
+          padding-bottom: 0;
         }
 
         .action,
@@ -195,6 +207,9 @@
           align-self: auto;
         }
       }
+    }
+    &~ main {
+      height: calc(100vh - #{$appbar-dense-row-height*2});
     }
   }
   // stylelint-enable plugin/selector-bem-pattern
@@ -205,11 +220,13 @@
     top: -16px;
     margin-bottom: 0px;
     height: $appbar-row-height + 16px;
-    background: transparent;
+    // use linear gradient to prevent z-index flicker in firefox
+    background: linear-gradient($appbar-fill-color 32px, transparent 48px);
 
     >div {
-      @include appbar-fill-color-accessible(primary);
-      // height: $appbar-row-height;
+      @include appbar-fill-color($appbar-fill-color);
+      @include appbar-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
+          // height: $appbar-row-height;
       position: sticky;
       top: 0px;
       margin-top: -16px;
@@ -228,6 +245,10 @@
       }
     }
 
+    &~ main {
+      height: calc(100vh - #{$appbar-row-height} - 16px);
+    }
+
     &:before,
     &:after {
       content: '';
@@ -243,7 +264,7 @@
     }
 
     &:after {
-      background: linear-gradient(rgba($mdc-theme-background,1), rgba($mdc-theme-background,.25));
+      background: linear-gradient($mdc-theme-background 8px, transparent);
       z-index: 2;
       top: 0;
     }
@@ -254,6 +275,10 @@
       &:before {
         top: $appbar-dense-row-height - 16px;
       }
+
+      &~ main {
+        height: calc(100vh - #{$appbar-dense-row-height} - 16px);
+      }
     }  
 
     &.prominent {
@@ -263,6 +288,10 @@
       &:before {
         top: $appbar-prominent-row-height - 16px;
       }
+
+      &~ main {
+        height: calc(100vh - #{$appbar-prominent-row-height} - 16px);
+      }
     }
 
     &.dense.prominent {
@@ -270,6 +299,10 @@
 
       &:before {
         top: $appbar-dense-row-height*2 - 16px;
+      }
+
+      &~ main {
+        height: calc(100vh - #{$appbar-dense-row-height} - 16px);
       }
     }
 

@@ -16,14 +16,18 @@
 // limitations under these licenses.
 // 
 
-@import "../typography/mixins";
+//@import "../typography/mixins";
+@import "../theme/variables";
 
 .solids {
 	position: relative;
+	background: $mdc-theme-background;
 
 	>main {
 		display: table-cell;
 		padding: 20px;
+		margin: 20px;
+		background: $mdc-theme-surface;
 	}
 
 	img {

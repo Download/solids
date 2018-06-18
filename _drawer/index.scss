@@ -28,7 +28,7 @@
 
 .solids .drawer {
 	@include solid_drawer_base();
-	@include appbar-icon-ink-color(on-primary);
+	@include appbar-icon-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
 
 	&.permanent {
 		@include solid_drawer_permanent();

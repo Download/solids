@@ -75,7 +75,6 @@
       >nav {
         width: $drawer-width;
         box-sizing: border-box;
-        width: $drawer-width;
         display: inline-flex;
         flex-direction: column;
         flex: 0 0 auto;
@@ -89,11 +88,8 @@
       &::before {
         position: absolute;
         content: '';
-        top: 0;
+        top: $appbar-row-height + 16px;
         bottom: 0;
-        height: 100%;
-        background: yellow; 
-        
       }
     }
 
@@ -106,7 +102,6 @@
 
   >label {
     position: absolute;
-    // width: 
     top: -($appbar-row-height + 16px);
     padding: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
     cursor: pointer;
@@ -121,7 +116,8 @@
       
     >a {
       @include appbar-icon_;
-      @include appbar-fill-color-accessible(primary);
+//      @include appbar-fill-color-accessible(primary);
+      @include appbar-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
     }
   }
 
@@ -192,21 +188,16 @@
 
 
 @mixin solid_drawer_persistent() {
-  &.fixed {
-    position: sticky;
-    top: 16px;
-/*
-    >label {
-      top: -($appbar-row-height + 16px);
-    }
-*/
-  }
-
   >div >div,
   >div >div::before {
     width: 0;
     will-change: width;
     transition: width 250ms;
+  }
+
+  >div >div::before {
+    @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
+    border-top: 1px solid #e4e4e4;
   }
 
   >div >div >nav {
@@ -221,34 +212,29 @@
   >input[type=checkbox] {
     &:checked ~ div {
       overflow: hidden;
-    }
-
-    &:checked ~ div >div::before {
-      
-      // @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-      // @include mdc-rtl-reflexive-position(left, 0);
-      //				@include mdc-slideable-drawer;
-//      width: $drawer-width;
-//      height: 100%;
-//      box-sizing: border-box;
-//      overflow: hidden;
-    }
-
-    &:checked ~ div >div {
-      >nav {
+      >div >nav {
         transform: translateX(0);
       }
     }
-
-    &:checked ~ div >div::before {
-      @include mdc-rtl-reflexive-box(border, right, 1px solid #e4e4e4);
-    }    
   }
 
   &.floating {
     >input[type=checkbox] {
       &:checked ~ div >div {
         @include mdc-rtl-reflexive-box(border, right, none);
+      }
+    }
+  }
+
+  &.fixed {
+    position: sticky;
+    top: 16px;
+
+    >div >div {
+      height: calc(100vh - #{$appbar-row-height} - 16px - 1px);
+
+      &::before {
+        top: 0;
       }
     }
   }
@@ -311,21 +297,12 @@
     }
 
     >div {
-      // // make this div a scroll-blocking layer
       height: 100vh;
-      overflow-x: hidden;
-      overflow-y: auto; // allow scroll
-      width: $drawer-width + 30px; // hide scrollbar
-      // // make sure there is tall content to force a scrollbar
-      &::after {
-        content: '';
-        display: block;
-        height: 10000px;
-      }
       
       >nav {
         position: sticky; // stick to top so it does not scroll
         top: 0;
+        height: 100vh;
         >header {
           display: block;
           position: relative;
@@ -352,12 +329,25 @@
     }
   }
 
+  input[type=checkbox]:checked ~ div {
+    transform: translateX(0);
+    > div {
+      // // make this div a scroll-blocking layer
+      overflow-x: hidden;
+      overflow-y: auto; // allow scroll
+      width: $drawer-width + 30px; // hide scrollbar
+      // // make sure there is tall content to force a scrollbar
+      &::after {
+        content: '';
+        display: block;
+        height: 10000px;
+      }
+    }
+  }
+
   &.end {
     @include mdc-rtl-reflexive-position(right, 0);
 
-    >input[type=checkbox]:checked ~ label {
-//      z-index: 2;
-    }
     >div {
       @include mdc-rtl-reflexive-position(right, 0);
       @include mdc-rtl-reflexive-box(border, left, 1px solid #e4e4e4);
@@ -404,13 +394,16 @@
           }
         }
       }
-      &~ div >div {
-              //				@include mdc-slideable-drawer;
-        transform: translateX(0);
-        box-shadow: -10px 0px 100px rgba(0, 0, 0, 0.35);
+      &~ div {
+        box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.6);
         @include mdc-rtl {
-          box-shadow: 10px 0px 100px rgba(0, 0, 0, 0.35);
+          box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.6);
         }
+        /*
+        >div {
+          transform: translateX(0);
+        }
+        */
       }
     }
   }
@@ -429,6 +422,16 @@
         top: -($appbar-dense-row-height + 16px);
         padding: 0 $appbar-section-horizontal-padding;
       }
+
+      >div >div::before {
+        top: $appbar-dense-row-height + 16px;
+      }
+
+      &.fixed {
+        >div >div {
+          height: calc(100vh - #{$appbar-dense-row-height} - 16px - 1px);
+        }
+      }
     }
   
     &.prominent {
@@ -437,12 +440,18 @@
           >label {
             top: -($appbar-dense-row-height*2 + 16px);
           }
+          >div >div::before {
+            top: $appbar-dense-row-height*2 + 16px;
+          }
         }
       }
       &.fixed {
         &~ .drawer {
           &.fixed {
             top: $appbar-dense-row-height*2 + 16px;
+            >div >div {
+              height: calc(100vh - #{$appbar-dense-row-height*2} - 16px - 1px);
+            }
           }
         }
       }
@@ -450,17 +459,20 @@
   }
 
   .solids .appbar.prominent {
+    &~ .drawer >div >div::before {
+      top: $appbar-prominent-row-height + 16px;
+    }
+
     &:not(.fixed) { 
-      &~ .drawer {
-        >label {
-          top: -($appbar-prominent-row-height + 16px);
-        }
+      &~ .drawer >label {
+        top: -($appbar-prominent-row-height + 16px);
       }
     }
     &.fixed {
-      &~ .drawer {
-        &.fixed {
-          top: $appbar-prominent-row-height + 16px;
+      &~ .drawer.fixed {
+        top: $appbar-prominent-row-height + 16px;
+        >div >div {
+          height: calc(100vh - #{$appbar-prominent-row-height} - 16px - 1px);
         }
       }
     }
@@ -491,6 +503,12 @@
     &~ .drawer {
       &.fixed {
         top: $appbar-row-height + 16px;
+        >div >div {
+          height: calc(100vh - #{$appbar-row-height} - 16px - 1px);
+          &::before {
+            top: 0;
+          }
+        }
       }
       >label {
         position: fixed;
