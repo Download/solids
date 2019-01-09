@@ -19,6 +19,7 @@
 @import "../ripple/common";
 @import "../ripple/mixins";
 @import "../rtl/mixins";
+@import "../theme/variables";
 @import "../theme/functions";
 @import "../typography/mixins";
 @import "../typography/variables";
@@ -156,34 +157,32 @@
     color: inherit;
     text-decoration: none;
   }
+}
 
-  .divider {
-    height: 0;
-    margin: 0;
-    border: none;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+.solids .divider {
+  height: 0;
+  margin: 0;
+  border: none;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  $divider-color: if(
+    tone($mdc-theme-background) == "dark",
+    $list_divider_color_on_dark_bg,
+    $list_divider_color_on_light_bg
+  );
+  @include mdc-theme-prop(border-bottom-color, $divider-color);
 
-    $divider-color: if(
-      tone($mdc-theme-background) == "dark",
-      $list_divider_color_on_dark_bg,
-      $list_divider_color_on_light_bg
-    );
-  
-    @include list_divider_color($divider-color);
+  &.padded {
+    // Leave gaps on each side to match the padding on list items
+    margin: 0 $list_side_padding;
+  }
+
+  &.inset {
+    @include mdc-rtl-reflexive-box(margin, left, $list_text_offset, ".list_group");
+    width: calc(100% - #{$list_text_offset});
 
     &.padded {
-      // Leave gaps on each side to match the padding on list items
-      margin: 0 $list_side_padding;
-    }
-
-    &.inset {
-      @include mdc-rtl-reflexive-box(margin, left, $list_text_offset, ".list_group");
-      width: calc(100% - #{$list_text_offset});
-
-      &.padded {
-        width: calc(100% - #{$list_text_offset} - #{$list_side_padding});
-      }
+      width: calc(100% - #{$list_text_offset} - #{$list_side_padding});
     }
   }
 }
@@ -194,16 +193,14 @@
     padding: 0;
   }
 
+  $list_subheader_virtual_height: 3rem;
+  $list_subheader_leading: map-get(map-get($typography-styles, body1), line-height);
+  $list_subheader_margin:
+    ($list_subheader_virtual_height - $list_subheader_leading) / 2;
+  @include list_group_subheader_ink_color(text-primary-on-background);
 
   .subheader {
-    $list_subheader_virtual_height: 3rem;
-    $list_subheader_leading: map-get(map-get($typography-styles, body1), line-height);
-    $list_subheader_margin:
-      ($list_subheader_virtual_height - $list_subheader_leading) / 2;
-
-    @include list_group_subheader_ink_color(text-primary-on-background);
     @include typography(subtitle1);
-
     margin: $list_subheader_margin $list_side_padding;
   }
 

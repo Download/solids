@@ -87,6 +87,10 @@
     @include appbar-icon_;
   }
 
+  &~ main {
+    height: calc(100vh - #{$appbar-row-height} - 16px);
+  }
+
   &.floating {
     @include mdc-elevation(4);
   }
@@ -116,9 +120,6 @@
           opacity: 1;
         }
       }
-    }
-    &~ main {
-      height: calc(100vh - #{$appbar-mobile-row-height});
     }
   }
 
@@ -161,7 +162,7 @@
     }
 
     &~ main {
-      height: calc(100vh - #{$appbar-dense-row-height});
+      height: calc(100vh - #{$appbar-dense-row-height} -16px);
     }
   }
 
@@ -179,7 +180,7 @@
       }
     }
     &~ main {
-      height: calc(100vh - #{$appbar-prominent-row-height});
+      height: calc(100vh - #{$appbar-prominent-row-height} - 16px);
     }
   }
 
@@ -209,7 +210,7 @@
       }
     }
     &~ main {
-      height: calc(100vh - #{$appbar-dense-row-height*2});
+      height: calc(100vh - #{$appbar-dense-row-height*2} - 16px);
     }
   }
   // stylelint-enable plugin/selector-bem-pattern
@@ -221,7 +222,11 @@
     margin-bottom: 0px;
     height: $appbar-row-height + 16px;
     // use linear gradient to prevent z-index flicker in firefox
-    background: linear-gradient($appbar-fill-color 32px, transparent 48px);
+    $fill: $appbar-fill-color;
+    @if map-has-key($mdc-theme-property-values, $fill) {
+      $fill: map-get($mdc-theme-property-values, $fill);
+    }
+    background: linear-gradient($fill 32px, transparent 48px);
 
     >div {
       @include appbar-fill-color($appbar-fill-color);
@@ -245,12 +250,8 @@
       }
     }
 
-    &~ main {
-      height: calc(100vh - #{$appbar-row-height} - 16px);
-    }
-
-    &:before,
-    &:after {
+    &::before,
+    &::after {
       content: '';
       display: block;
       height: 16px;
@@ -258,13 +259,13 @@
       position: sticky;
     }
 
-    &:before {
+    &::before {
       @include mdc-elevation(4);
       top: $appbar-row-height - 16px;
     }
 
-    &:after {
-      background: linear-gradient($mdc-theme-background 8px, transparent);
+    &::after {
+      background: linear-gradient($mdc-theme-background 3px, rgba($mdc-theme-background, .95) 7px, rgba($mdc-theme-background, .6) 12px, transparent);
       z-index: 2;
       top: 0;
     }
@@ -272,38 +273,41 @@
     &.dense {
       height: $appbar-dense-row-height + 16px;
 
-      &:before {
+      &::before {
         top: $appbar-dense-row-height - 16px;
       }
-
+/*
       &~ main {
         height: calc(100vh - #{$appbar-dense-row-height} - 16px);
       }
+*/
     }  
 
     &.prominent {
       height: $appbar-prominent-row-height + 16px;
       top: -16px;
 
-      &:before {
+      &::before {
         top: $appbar-prominent-row-height - 16px;
       }
-
+/*
       &~ main {
         height: calc(100vh - #{$appbar-prominent-row-height} - 16px);
       }
+*/
     }
 
     &.dense.prominent {
       height: $appbar-dense-row-height*2 + 16px;
 
-      &:before {
+      &::before {
         top: $appbar-dense-row-height*2 - 16px;
       }
-
+/*
       &~ main {
-        height: calc(100vh - #{$appbar-dense-row-height} - 16px);
+        height: calc(100vh - #{$appbar-dense-row-height*2} - 16px);
       }
+*/
     }
 
     &.shrink {
@@ -326,14 +330,14 @@
           }
         }
 
-        &:before {
+        &::before {
           top: $appbar-row-height - 16px;
         }
       
-        &:after {
+        &::after {
           top: 0;
           display: none;
-        }    
+        }
       }
 
       &.dense.prominent {
@@ -349,7 +353,7 @@
           }
         }
 
-        &:before {
+        &::before {
           top: $appbar-dense-row-height - 16px;
         }
       }
@@ -362,11 +366,11 @@
         @include mdc-elevation(4);
       }
   
-      &:before {
+      &::before {
         display: none;
       }
   
-      &:after {
+      &::after {
         display: none;
       }
     }

@@ -23,6 +23,12 @@
 	position: relative;
 	background: $mdc-theme-background;
 
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+
 	>main {
 		display: table-cell;
 		padding: 20px;

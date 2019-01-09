@@ -17,6 +17,7 @@
 // 
 
 @import "../animation/variables";
+@import "../ripple/common";
 @import "../ripple/mixins";
 @import "../theme/variables"; // for mdc-theme-accessible-ink-color
 @import "../theme/mixins";
@@ -62,7 +63,7 @@
       }
 
       &~ main {
-        height: calc(100vh - $appbar-mobile-row-height);
+        height: calc(100vh - #{$appbar-mobile-row-height});
       }
 
       &.short {

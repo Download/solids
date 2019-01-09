@@ -47,20 +47,117 @@
 	.solids .drawer.responsive {
 		@include solid_drawer_persistent();
 	}
+
+	.solids .appbar:not(.fixed) {
+		&~ .drawer.fixed {
+			>label {
+				top: -($appbar-row-height + 16px);
+			}
+		}
+  	&.dense ~ .drawer.fixed {
+			>label {
+				top: -($appbar-dense-row-height + 16px);
+			}
+		}
+		&.dense.prominent ~ .drawer.fixed {
+			>label {
+				top: -($appbar-dense-row-height*2 + 16px);
+			}
+		}
+		&.prominent ~ .drawer.fixed {
+			>label {
+				top: -($appbar-prominent-row-height + 16px);
+			}
+		}
+	}
+	/*
+  .solids .appbar:not(.fixed) ~ .drawer.fixed >label {
+		top: -($appbar-row-height + 16px);
+	}
+  .solids .appbar.dense:not(.fixed) ~ .drawer.fixed >label {
+		top: -($appbar-dense-row-height + 16px);
+	}
+  .solids .appbar.dense.prominent:not(.fixed) ~ .drawer.fixed >label {
+		top: -($appbar-dense-row-height*2 + 16px);
+	}
+  .solids .appbar.prominent:not(.fixed) ~ .drawer.fixed >label {
+		top: -($appbar-prominent-row-height + 16px);
+	}
+	*/
 }
 
 @media(min-width: $appbar-mobile-breakpoint + 1px) and (max-width: $appbar-tablet-breakpoint) {
-	.solids .drawer.responsive:not(.end) {
-		@include solid_drawer_persistent();
-	}
-	.solids .drawer.responsive.end {
-		@include solid_drawer_temporary();
-		>input[type=checkbox] {
-			&:checked {
-				&~ label {
-					z-index: 2;
+	.solids .drawer.responsive{ 
+		&:not(.end) {
+			@include solid_drawer_persistent();
+		}
+		&.end {
+			@include solid_drawer_temporary();
+			>input[type=checkbox] {
+				&:checked {
+					&~ label {
+						z-index: 2;
+					}
 				}
 			}
+		}
+	}
+
+	.solids .appbar {
+		&~ .drawer.end {
+			>div >div::before {
+        top: $appbar-row-height + 16px;
+      }			
+		}
+  	&.dense ~ .drawer.end {
+			>div >div::before {
+        top: $appbar-dense-row-height + 16px;
+      }			
+		}
+		&.dense.prominent ~ .drawer.end {
+			>div >div::before {
+        top: $appbar-dense-row-height*2 + 16px;
+      }			
+		}
+		&.prominent ~ .drawer.end {
+			>div >div::before {
+        top: $appbar-prominent-row-height + 16px;
+      }			
+		}
+	}
+
+	.solids .appbar:not(.fixed) {
+		&~ .drawer.end {
+			>label {
+				top: -($appbar-row-height + 16px);
+			}
+			>div >div::before {
+        top: $appbar-row-height + 16px;
+      }			
+		}
+  	&.dense ~ .drawer.end {
+			>label {
+				top: -($appbar-dense-row-height + 16px);
+			}
+			>div >div::before {
+        top: $appbar-dense-row-height + 16px;
+      }			
+		}
+		&.dense.prominent ~ .drawer.end {
+			>label {
+				top: -($appbar-dense-row-height*2 + 16px);
+			}
+			>div >div::before {
+        top: $appbar-dense-row-height*2 + 16px;
+      }			
+		}
+		&.prominent ~ .drawer.end {
+			>label {
+				top: -($appbar-prominent-row-height + 16px);
+			}
+			>div >div::before {
+        top: $appbar-prominent-row-height + 16px;
+      }			
 		}
 	}
 }
@@ -81,6 +178,18 @@
 				}
 			}
 		}
+	}
+  .solids .appbar:not(.fixed) ~ .drawer >label {
+		top: -($appbar-mobile-row-height + 16px);
+	}
+  .solids .appbar.dense:not(.fixed) ~ .drawer >label {
+		top: -($appbar-dense-row-height + 16px);
+	}
+  .solids .appbar.dense.prominent:not(.fixed) ~ .drawer >label {
+		top: -($appbar-dense-row-height*2 + 16px);
+	}
+  .solids .appbar.prominent:not(.fixed) ~ .drawer >label {
+		top: -($appbar-prominent-row-height + 16px);
 	}
 }
 
