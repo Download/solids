@@ -42,7 +42,7 @@ npm install @material/card
 ### HTML Structure
 
 ```html
-<div class="mdc-card">
+<div class="card">
   Simple
 </div>
 ```
@@ -50,26 +50,26 @@ npm install @material/card
 Fully-featured:
 
 ```html
-<div class="mdc-card">
-  <div class="mdc-card__media mdc-card__media--square">
-    <div class="mdc-card__media-content">Title</div>
+<div class="card">
+  <div class="card__media card__media--square">
+    <div class="card__media-content">Title</div>
   </div>
   <!-- ... content ... -->
-  <div class="mdc-card__actions">
-    <div class="mdc-card__action-buttons">
-      <button class="mdc-button mdc-card__action mdc-card__action--button">Action 1</button>
-      <button class="mdc-button mdc-card__action mdc-card__action--button">Action 2</button>
+  <div class="card__actions">
+    <div class="card__action-buttons">
+      <button class="mdc-button card__action card__action--button">Action 1</button>
+      <button class="mdc-button card__action card__action--button">Action 2</button>
     </div>
-    <div class="mdc-card__action-icons">
-      <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Share">share</i>
-      <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="More options">more_vert</i>
+    <div class="card__action-icons">
+      <i class="material-icons card__action card__action--icon" tabindex="0" role="button" title="Share">share</i>
+      <i class="material-icons card__action card__action--icon" tabindex="0" role="button" title="More options">more_vert</i>
     </div>
   </div>
 </div>
 ```
 
 Cards don't come with a predefined width, height, padding, or margin. In its simplest form (just a single element with
-`mdc-card`), a card is basically just `mdc-elevation` + `border-radius`.
+`card`), a card is basically just `elevation` + `border-radius`.
 
 Cards expand horizontally to fill all available space, and vertically to fit their contents.
 
@@ -99,20 +99,20 @@ However, MDC Card _does_ provide styles for two common card elements: _rich medi
 ```
 
 ```html
-<div class="my-card__media mdc-card__media mdc-card__media--16-9">
-  <div class="mdc-card__media-content">Title</div>
+<div class="my-card__media card__media card__media--16-9">
+  <div class="card__media-content">Title</div>
 </div>
 ```
 
-This area is used for showing rich media in cards, and optionally as a container. Use the `mdc-card__media` CSS class
+This area is used for showing rich media in cards, and optionally as a container. Use the `card__media` CSS class
 and the [optional modifier classes](#css-classes).
 
 ##### Actions
 
 ```html
-<div class="mdc-card__actions">
-  <button class="mdc-button mdc-card__action mdc-card__action--button">Action 1</button>
-  <button class="mdc-button mdc-card__action mdc-card__action--button">Action 2</button>
+<div class="card__actions">
+  <button class="mdc-button card__action card__action--button">Action 1</button>
+  <button class="mdc-button card__action card__action--button">Action 2</button>
 </div>
 ```
 
@@ -120,8 +120,8 @@ This area is used for showing different actions the user can take. It's typicall
 above, or with icon buttons, as below:
 
 ```html
-<div class="mdc-card__actions">
-  <i class="mdc-icon-toggle material-icons mdc-card__action mdc-card__action--icon"
+<div class="card__actions">
+  <i class="mdc-icon-toggle material-icons card__action card__action--icon"
      tabindex="0"
      role="button"
      aria-pressed="false"
@@ -131,37 +131,37 @@ above, or with icon buttons, as below:
      data-toggle-off='{"content": "favorite_border", "label": "Add to favorites"}'>
     favorite_border
   </i>
-  <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Share">share</i>
-  <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="More options">more_vert</i>
+  <i class="material-icons card__action card__action--icon" tabindex="0" role="button" title="Share">share</i>
+  <i class="material-icons card__action card__action--icon" tabindex="0" role="button" title="More options">more_vert</i>
 </div>
 ```
 
-Be sure to include the `mdc-card__action` class on every action for correct positioning. In addition, _button_ icons
-should use the `mdc-card__action--button` class, and _icon_ actions should use the `mdc-card__action--icon` class.
+Be sure to include the `card__action` class on every action for correct positioning. In addition, _button_ icons
+should use the `card__action--button` class, and _icon_ actions should use the `card__action--icon` class.
 
 To have a single action button take up the entire width of the action row, use the `--full-bleed` modifier on the row:
 
 ```html
-<div class="mdc-card__actions mdc-card__actions--full-bleed">
-  <a class="mdc-button mdc-card__action mdc-card__action--button" href="#">
+<div class="card__actions card__actions--full-bleed">
+  <a class="mdc-button card__action card__action--button" href="#">
     All Business Headlines
     <i class="material-icons" aria-hidden="true">arrow_forward</i>
   </a>
 </div>
 ```
 
-To display buttons _and_ icons in the same row, wrap them in `mdc-card__action-buttons` and `mdc-card__action-icons`
+To display buttons _and_ icons in the same row, wrap them in `card__action-buttons` and `card__action-icons`
 elements:
 
 ```html
-<div class="mdc-card__actions">
-  <div class="mdc-card__action-buttons">
-    <button class="mdc-button mdc-card__action mdc-card__action--button">Read</button>
-    <button class="mdc-button mdc-card__action mdc-card__action--button">Bookmark</button>
+<div class="card__actions">
+  <div class="card__action-buttons">
+    <button class="mdc-button card__action card__action--button">Read</button>
+    <button class="mdc-button card__action card__action--button">Bookmark</button>
   </div>
-  <div class="mdc-card__action-icons">
-    <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Share">share</i>
-    <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="More options">more_vert</i>
+  <div class="card__action-icons">
+    <i class="material-icons card__action card__action--icon" tabindex="0" role="button" title="Share">share</i>
+    <i class="material-icons card__action card__action--icon" tabindex="0" role="button" title="More options">more_vert</i>
   </div>
 </div>
 ```
@@ -170,26 +170,26 @@ elements:
 
 CSS Class | Description
 --- | ---
-`mdc-card` | Mandatory, for the card element
-`mdc-card--outlined` | Removes the shadow and displays a hairline outline instead
-`mdc-card__primary-action` | The main tappable area of the card. Typically contains most (or all) card content _except_ `mdc-card__actions`. Only applicable to cards that have a primary action that the main surface should trigger.
-`mdc-card__media` | Media area that displays a custom `background-image` with `background-size: cover`
-`mdc-card__media--square` | Automatically scales the media area's height to equal its width
-`mdc-card__media--16-9` | Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio
-`mdc-card__media-content` | An absolutely-positioned box the same size as the media area, for displaying a title or icon on top of the `background-image`
-`mdc-card__actions` | Row containing action buttons and/or icons
-`mdc-card__actions--full-bleed` | Removes the action area's padding and causes its only child (an `mdc-card__action` element) to consume 100% of the action area's width
-`mdc-card__action-buttons` | A group of action buttons, displayed on the left side of the card (in LTR), adjacent to `mdc-card__action-icons`
-`mdc-card__action-icons` | A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to `__action-buttons`
-`mdc-card__action` | An individual action button or icon
-`mdc-card__action--button` | An action button with text
-`mdc-card__action--icon` | An action icon with no text
+`card` | Mandatory, for the card element
+`card--outlined` | Removes the shadow and displays a hairline outline instead
+`card__primary-action` | The main tappable area of the card. Typically contains most (or all) card content _except_ `card__actions`. Only applicable to cards that have a primary action that the main surface should trigger.
+`card__media` | Media area that displays a custom `background-image` with `background-size: cover`
+`card__media--square` | Automatically scales the media area's height to equal its width
+`card__media--16-9` | Automatically scales the media area's height according to its width, maintaining a 16:9 aspect ratio
+`card__media-content` | An absolutely-positioned box the same size as the media area, for displaying a title or icon on top of the `background-image`
+`card__actions` | Row containing action buttons and/or icons
+`card__actions--full-bleed` | Removes the action area's padding and causes its only child (an `card__action` element) to consume 100% of the action area's width
+`card__action-buttons` | A group of action buttons, displayed on the left side of the card (in LTR), adjacent to `card__action-icons`
+`card__action-icons` | A group of supplemental action icons, displayed on the right side of the card (in LTR), adjacent to `__action-buttons`
+`card__action` | An individual action button or icon
+`card__action--button` | An action button with text
+`card__action--icon` | An action icon with no text
 
 ### Sass Mixins
 
 Mixin | Description
 --- | ---
-`mdc-card-fill-color($color)` | Sets the fill color of a card
-`mdc-card-outline($color, $thickness)` | Sets the color and thickness of a card's outline (but does _not_ remove its shadow)
-`mdc-card-corner-radius($radius)` | Sets the corner radius of a card
-`mdc-card-media-aspect-ratio($x, $y)` | Maintains the given aspect ratio on a `mdc-card__media` subelement by dynamically scaling its height relative to its width
+`card-fill-color($color)` | Sets the fill color of a card
+`card-outline($color, $thickness)` | Sets the color and thickness of a card's outline (but does _not_ remove its shadow)
+`card-corner-radius($radius)` | Sets the corner radius of a card
+`card-media-aspect-ratio($x, $y)` | Maintains the given aspect ratio on a `card__media` subelement by dynamically scaling its height relative to its width

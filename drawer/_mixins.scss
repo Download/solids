@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -23,32 +23,32 @@
 @import "../typography/mixins";
 
 
-@mixin mdc-drawer-fill-color($color) {
+@mixin drawer-fill-color($color) {
   @include mdc-theme-prop(background-color, $color);
 }
 
 
-@mixin mdc-drawer-ink-color($color) {
+@mixin drawer-ink-color($color) {
   @include mdc-theme-prop(color, $color);
 }
 
 
-@mixin mdc-drawer-scrim-color($color, $opacity) {
+@mixin drawer-scrim-color($color, $opacity) {
   &::before {
     background-color: rgba(mdc-theme-prop-value($color), $opacity);
   }
 }
 
 
-@mixin mdc-drawer-fill-color-accessible($color) {
-  @include mdc-drawer-ink-color(mdc-theme-accessible-ink-color($color));
-  @include mdc-drawer-fill-color($color);
+@mixin drawer-fill-color-accessible($color) {
+  @include drawer-ink-color(mdc-theme-accessible-ink-color($color));
+  @include drawer-fill-color($color);
 }
 
 
 @mixin solid_drawer_base() {
-  @include mdc-drawer-ink-color($drawer-ink-color);
-  @include mdc-drawer-fill-color($drawer-fill-color);
+  @include drawer-ink-color($drawer-ink-color);
+  @include drawer-fill-color($drawer-fill-color);
   @include typography(subtitle1);  
 
   &:not(.end) {
@@ -149,15 +149,6 @@
 
   >input[type=checkbox] {
     display:none;
-    &:checked {
-      // &~ label {
-      //   z-index: 2;
-      // }
-      &~ div >div,
-      &~ div >div::before {
-        width: $drawer-width; // - 1px; // compensate for border
-      }
-    }
   }
 
   // right-hand side drawer (in ltr)
@@ -273,16 +264,26 @@
     transition: transform $drawer-transition-duration - 10ms; // transition a bit faster, to prevent flicker on Firefox.
   }
   
-  >input[type=checkbox] {
-    &:checked ~ div >div >nav {
-      transform: translateX(0);
+  >input[type=checkbox].temporary + label {display: none;}
+  >input[type=checkbox].persistent {
+    &:not(:checked) {
+      &~ div >div {
+        width: $drawer-width;
+
+        &>nav {
+          transform: translateX(0);
+        }
+
+        &::before {
+          width: $drawer-width;
+        }
+      }
     }
   }
 
-
   &.floating {
-    >input[type=checkbox] {
-      &:checked ~ div >div {
+    >input[type=checkbox].persistent {
+      &:not(:checked) ~ div >div {
 //        @include mdc-rtl-reflexive-box(border, right, none);
       }
     }
@@ -364,8 +365,8 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    @include mdc-drawer-fill-color($drawer-fill-color);
-    @include mdc-drawer-ink-color($drawer-ink-color);
+    @include drawer-fill-color($drawer-fill-color);
+    @include drawer-ink-color($drawer-ink-color);
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -399,30 +400,41 @@
             align-items: flex-end;
             box-sizing: border-box;
             padding: 16px;
-            background-color: $drawer-header-fill-color;
-            color: $drawer-header-ink-color;
+            @include drawer-fill-color($drawer-header-fill-color);
+            @include drawer-ink-color($drawer-header-ink-color);
           }
         }
       }
     }
   }
 
-  input[type=checkbox] ~ div > div {
+  input[type=checkbox].persistent + label {display:none}
+  input[type=checkbox].temporary ~ div > div {
     // make this element a scroll-blocking layer
     overflow-x: hidden;
     overflow-y: auto;
     height: 100% !important;
-    width: calc(100% + 30px);
+    width: calc(100% + 30px) !important;
     overscroll-behavior: contain;
   }
 
-  input[type=checkbox]:checked ~ div {
+  input[type=checkbox].temporary:checked ~ div {
     transform: translateX(0);
     // make sure there is tall content to force a scrollbar
-    >div::after {
-      content: '';
-      display: block;
-      height: 10000px;
+    >div {
+      width: $drawer-width;
+
+      &::before {
+        width: $drawer-width;
+      }
+      &::after {
+        content: '';
+        display: block;
+        height: 10000px;
+      }
+      &>nav {
+        transform: translateX(0);
+      }
     }
   }
 
@@ -442,7 +454,7 @@
     }    
   }
 
-  >input[type=checkbox] {
+  >input[type=checkbox].temporary {
     &:checked {
       &~ label {
         position: fixed;
@@ -622,6 +634,13 @@
 
 
   .solids .appbar.prominent {
+    &~ .drawer {
+      >div >div {
+        &::before {
+          top: $appbar-prominent-row-height + 16px;
+        }
+      }
+    }
     &~ .drawer.fixed {
       >div >div {
         margin-bottom: -$appbar-prominent-row-height;
@@ -657,6 +676,7 @@
         }
       }
       &.shrink ~ .drawer.fixed {
+        top: $appbar-row-height + 16px;
         >div >div {
           height: calc(100vh - #{$appbar-row-height} - 16px - 1px);
         }

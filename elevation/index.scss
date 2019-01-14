@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -18,8 +18,13 @@
 
 @import "./mixins";
 
-:root {
-  @each $style in map-keys($mdc-theme-property-values) {
-    --mdc-theme-#{$style}: #{map-get($mdc-theme-property-values, $style)};
+@for $z-value from 0 through 24 {
+  .z#{$z-value} {
+    @include elevation($z-value);
   }
+}
+
+.z_transition {
+  transition: elevation-transition-value();
+  will-change: $elevation-property;
 }

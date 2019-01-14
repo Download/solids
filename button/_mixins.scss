@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -173,21 +173,21 @@
 }
 
 @mixin mdc-button--raised_() {
-  @include mdc-elevation(2);
+  @include elevation(2);
 
-  transition: mdc-elevation-transition-value();
+  transition: elevation-transition-value();
 
   &:hover,
   &:focus {
-    @include mdc-elevation(4);
+    @include elevation(4);
   }
 
   &:active {
-    @include mdc-elevation(8);
+    @include elevation(8);
   }
 
   &:disabled {
-    @include mdc-elevation(0);
+    @include elevation(0);
   }
 }
 

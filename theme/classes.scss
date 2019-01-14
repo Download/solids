@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -18,13 +18,21 @@
 
 @import "./mixins";
 
-@for $z-value from 0 through 24 {
-  .mdc-elevation--z#{$z-value} {
-    @include mdc-elevation($z-value);
+@each $style in map-keys($mdc-theme-property-values) {
+  @if $style != "background" and $style != "surface" {
+    .mdc-theme--#{$style} {
+      @include mdc-theme-prop(color, $style, true);
+    }
+  } @else {
+    .mdc-theme--#{$style} {
+      @include mdc-theme-prop(background-color, $style);
+    }
   }
 }
 
-.mdc-elevation-transition {
-  transition: mdc-elevation-transition-value();
-  will-change: $mdc-elevation-property;
+// CSS rules for using primary and secondary (plus light/dark variants) as background colors.
+@each $style in ("primary", "secondary") {
+  .mdc-theme--#{$style}-bg {
+    @include mdc-theme-prop(background-color, $style, true);
+  }
 }

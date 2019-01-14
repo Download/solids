@@ -1,0 +1,381 @@
+//
+// Copyright 2019 Stijn de Witt. Some rights reserved.
+// Licensed under the MIT Open Source license. 
+// https://opensource.org/licenses/MIT
+// See LICENSE for details.
+//
+// Based on code copyright 2018 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0.
+// http://www.apache.org/licenses/LICENSE-2.0
+// See LICENSE-MDC for details.
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under these licenses is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the licenses for the specific language governing permissions and
+// limitations under these licenses.
+// 
+
+@import "../animation/variables";
+@import "../elevation/mixins";
+@import "../rtl/mixins";
+@import "../typography/mixins";
+
+@import "./mixins";
+@import "./variables";
+
+// postcss-bem-linter: define top-app-bar
+.solids .topappbar {
+  @include appbar-fill-color($appbar-fill-color);
+  @include appbar-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
+  @include appbar-icon-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 16px;
+  z-index: 1;
+
+  >div {
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    // make sure drawer button ripple falls over appbar action button
+    z-index: 0; 
+
+    >section {
+//      @include appbar-fill-color-accessible(primary);
+      display: inline-flex;
+      flex: 1 1 auto;
+      align-items: center;
+      min-width: 0;
+      padding: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
+      z-index: 1;
+  
+      &.start {
+        justify-content: flex-start;
+        order: -1;
+        &.reserve {
+          @include mdc-rtl-reflexive-box(margin, left, 48px);
+        }
+      }
+  
+      &.end {
+        justify-content: flex-end;
+        order: 1;
+        &.reserve {
+          @include mdc-rtl-reflexive-box(margin, right, 48px);
+        }
+      }
+
+      .title {
+        @include typography(headline6);
+        @include mdc-rtl-reflexive-box(padding, left, $appbar-title-left-padding);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        z-index: 1;
+      }
+    }
+  }
+
+  .action,
+  .icon {
+    @include appbar-icon_;
+  }
+
+  &~ main {
+    height: calc(100vh - #{$appbar-row-height} - 16px);
+  }
+
+  &.floating {
+    @include elevation(4);
+  }
+  
+
+  &.short {
+    position: fixed;
+    top: 0;
+    right: auto;
+    left: 0;
+    width: 100%;
+    transition: width 250ms $mdc-animation-standard-curve-timing-function;
+
+    @include mdc-rtl {
+      right: 0;
+      left: auto;
+    }
+
+    >div {
+      height: $appbar-mobile-row-height;
+
+      >section {
+        padding: $appbar-mobile-section-padding;
+
+        .title {
+          transition: opacity 200ms $mdc-animation-standard-curve-timing-function;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.collapsed {
+    @include appbar-short-border-radius;
+    @include elevation(4);
+  
+    width: $appbar-short-collapsed-width;
+    transition: width 300ms $mdc-animation-standard-curve-timing-function;
+  
+    >div >section .title {
+      opacity: 0;
+    }
+  
+    .action {
+      transition: padding 150ms $mdc-animation-standard-curve-timing-function;
+    }
+
+    &.has_action {
+      width: $appbar-short-collapsed-width * 2;
+
+      >div >section.end {
+        @include mdc-rtl-reflexive-box(padding, right, 12px);
+      }
+    }
+  }
+
+  // stylelint-disable-next-line plugin/selector-bem-pattern
+  &.dense {
+    >div {
+      height: $appbar-dense-row-height;
+
+      >section {
+        padding: 0 $appbar-dense-section-horizontal-padding;
+
+        .title {
+          @include mdc-rtl-reflexive-box(padding, left, $appbar-dense-title-left-padding);
+        }
+      }
+    }
+
+    &~ main {
+      height: calc(100vh - #{$appbar-dense-row-height} -16px);
+    }
+  }
+
+  &.prominent {
+    >div {
+      height: $appbar-prominent-row-height;
+
+      >section {
+        align-items: flex-end;
+
+        .action,
+        .icon {
+          align-self: flex-start;
+        }
+      }
+    }
+    &~ main {
+      height: calc(100vh - #{$appbar-prominent-row-height} - 16px);
+    }
+  }
+
+  // Specific styles for prominent and dense styled top app bar
+  // stylelint-disable plugin/selector-bem-pattern
+  &.dense.prominent {
+
+    >div {
+      height: $appbar-dense-row-height * 2;
+
+      >section {
+        padding: 8px $appbar-section-horizontal-padding;
+
+        &.end {
+          height: $appbar-dense-row-height + 8px;
+        }
+
+        .title {
+          @include mdc-rtl-reflexive-box(padding, left, $appbar-title-left-padding);
+          padding-bottom: 0;
+        }
+
+        .action,
+        .icon {
+          align-self: auto;
+        }
+      }
+    }
+    &~ main {
+      height: calc(100vh - #{$appbar-dense-row-height*2} - 16px);
+    }
+  }
+  // stylelint-enable plugin/selector-bem-pattern
+
+  // stylelint-disable-next-line plugin/selector-bem-pattern
+  &.fixed {
+    position: sticky;
+    top: -16px;
+    margin-bottom: 0px;
+    height: $appbar-row-height + 16px;
+    // use linear gradient to prevent z-index flicker in firefox
+    $fill: $appbar-fill-color;
+    @if map-has-key($mdc-theme-property-values, $fill) {
+      $fill: map-get($mdc-theme-property-values, $fill);
+    }
+    background: linear-gradient($fill 32px, transparent 48px);
+
+    >div {
+      @include appbar-fill-color($appbar-fill-color);
+      @include appbar-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
+          // height: $appbar-row-height;
+      position: sticky;
+      top: 0px;
+      margin-top: -16px;
+      z-index: 3;
+
+      >section {
+        position: sticky;
+
+        &.start {
+          top: 0;
+        }
+
+        &.end {
+          top: 0;
+        }
+      }
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      height: 16px;
+      width: 100%;
+      position: sticky;
+    }
+
+    &::before {
+      @include elevation(4);
+      top: $appbar-row-height - 16px;
+    }
+
+    &::after {
+      background: linear-gradient($mdc-theme-background 3px, rgba($mdc-theme-background, .95) 7px, rgba($mdc-theme-background, .6) 12px, transparent);
+      z-index: 2;
+      top: 0;
+    }
+
+    &.dense {
+      height: $appbar-dense-row-height + 16px;
+
+      &::before {
+        top: $appbar-dense-row-height - 16px;
+      }
+/*
+      &~ main {
+        height: calc(100vh - #{$appbar-dense-row-height} - 16px);
+      }
+*/
+    }  
+
+    &.prominent {
+      height: $appbar-prominent-row-height + 16px;
+      top: -16px;
+
+      &::before {
+        top: $appbar-prominent-row-height - 16px;
+      }
+/*
+      &~ main {
+        height: calc(100vh - #{$appbar-prominent-row-height} - 16px);
+      }
+*/
+    }
+
+    &.dense.prominent {
+      height: $appbar-dense-row-height*2 + 16px;
+
+      &::before {
+        top: $appbar-dense-row-height*2 - 16px;
+      }
+/*
+      &~ main {
+        height: calc(100vh - #{$appbar-dense-row-height*2} - 16px);
+      }
+*/
+    }
+
+    &.shrink {
+      &.prominent {
+        height: $appbar-prominent-row-height;
+        top: -($appbar-prominent-row-height - $appbar-row-height);
+        margin-bottom: 16px;
+        
+        >div {
+          >section {
+            align-items: center;
+            height: $appbar-row-height;
+            position: sticky;
+            &.start {
+              top: $appbar-row-height;
+            }
+            &.end {
+              top: 0;
+            }
+          }
+        }
+
+        &::before {
+          top: $appbar-row-height - 16px;
+        }
+      
+        &::after {
+          top: 0;
+          display: none;
+        }
+      }
+
+      &.dense.prominent {
+        height: $appbar-dense-row-height*2;
+        top: -($appbar-dense-row-height*2 - $appbar-dense-row-height);
+
+        >div {
+          >section {
+            height: $appbar-dense-row-height;
+            &.start {
+              top: $appbar-dense-row-height;
+            }
+          }
+        }
+
+        &::before {
+          top: $appbar-dense-row-height - 16px;
+        }
+      }
+    }
+
+    &.floating {
+      box-shadow: none;
+      
+      >div {
+        @include elevation(4);
+      }
+  
+      &::before {
+        display: none;
+      }
+  
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+// Mobile Styles
+@include appbar-mobile-breakpoint_;

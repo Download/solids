@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -92,7 +92,7 @@
   }
 
   &.floating {
-    @include mdc-elevation(4);
+    @include elevation(4);
   }
   
 
@@ -125,7 +125,7 @@
 
   &.collapsed {
     @include appbar-short-border-radius;
-    @include mdc-elevation(4);
+    @include elevation(4);
   
     width: $appbar-short-collapsed-width;
     transition: width 300ms $mdc-animation-standard-curve-timing-function;
@@ -260,7 +260,7 @@
     }
 
     &::before {
-      @include mdc-elevation(4);
+      @include elevation(4);
       top: $appbar-row-height - 16px;
     }
 
@@ -363,7 +363,7 @@
       box-shadow: none;
       
       >div {
-        @include mdc-elevation(4);
+        @include elevation(4);
       }
   
       &::before {
@@ -379,3 +379,11 @@
 
 // Mobile Styles
 @include appbar-mobile-breakpoint_;
+
+.solids.tactile .appbar >div,
+.solids .appbar.tactile >div {
+  box-shadow: 
+    0px 1px 3px 0px inset rgba(255, 255, 255, 0.2), 
+    0px -1px 5px 0px inset rgba(0, 0, 0, 0.1), 
+    0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+}

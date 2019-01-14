@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -60,7 +60,7 @@ $mdc-fab-icon-enter-duration_: 180ms;
 @mixin mdc-fab-base_ {
   @include mdc-ripple-surface;
   @include mdc-ripple-radius-bounded;
-  @include mdc-elevation(6);
+  @include elevation(6);
 
   display: inline-flex;
   position: relative;
@@ -70,7 +70,7 @@ $mdc-fab-icon-enter-duration_: 180ms;
   height: 56px;
   padding: 0;
   transition:
-    box-shadow $mdc-elevation-transition-duration $mdc-elevation-transition-timing-function,
+    box-shadow $elevation-transition-duration $elevation-transition-timing-function,
     opacity 15ms linear 30ms,
     mdc-animation-enter(transform, $mdc-fab-icon-enter-duration_ + $mdc-fab-icon-enter-delay_);
   border: none;
@@ -89,11 +89,11 @@ $mdc-fab-icon-enter-duration_: 180ms;
 
   &:hover,
   &:focus {
-    @include mdc-elevation(8);
+    @include elevation(8);
   }
 
   &:active {
-    @include mdc-elevation(12);
+    @include elevation(12);
   }
 
   &:active,

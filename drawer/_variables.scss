@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -18,8 +18,8 @@
 
 @import "../theme/variables";
 
-$drawer-fill-color: $mdc-theme-background !default;
-$drawer-ink-color: map-get($mdc-theme-property-values, text-primary-on-background) !default;
+$drawer-fill-color: $mdc-theme-surface !default;
+$drawer-ink-color: map-get($mdc-theme-property-values, on-surface) !default;
 
 $drawer-scrim-color: #000 !default;
 $drawer-scrim-opacity: .6 !default;
@@ -31,5 +31,5 @@ $drawer-width: $mdc-theme-sidebar-width !default;
 
 $drawer-transition-duration: 250ms;
 
-$drawer-header-fill-color: $mdc-theme-primary;
+$drawer-header-fill-color: primary !default;
 $drawer-header-ink-color: $mdc-theme-on-primary;

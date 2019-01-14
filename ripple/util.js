@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright 2018 Stijn de Witt. Some rights reserved.
+ * Copyright 2019 Stijn de Witt. Some rights reserved.
  * Licensed under the MIT Open Source license. 
  * https://opensource.org/licenses/MIT
  * See LICENSE for details.

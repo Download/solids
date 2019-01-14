@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -18,10 +18,14 @@
 
 //@import "../typography/mixins";
 @import "../theme/variables";
+@import "../theme/mixins";
+@import "../theme/properties";
+
 
 .solids {
+	@include mdc-theme-prop(background-color, $mdc-theme-background);
+
 	position: relative;
-	background: $mdc-theme-background;
 
 	&::after {
 		content: '';
@@ -31,12 +35,11 @@
 
 	>main {
 		display: table-cell;
-		padding: 20px;
-		margin: 20px;
-		background: $mdc-theme-surface;
+		padding: 0 20px 20px 20px;
 	}
 
 	img {
 		max-width: 100%;
 	}
 }
+

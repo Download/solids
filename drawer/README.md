@@ -48,9 +48,9 @@ than mobile.
 > TODO(sgomes): Give advice on how to hide permanent drawer in mobile.
 
 ```html
-<nav class="mdc-drawer mdc-drawer--permanent typography">
-  <div class="mdc-drawer__toolbar-spacer"></div>
-  <div class="mdc-drawer__content">
+<nav class="drawer drawer--permanent typography">
+  <div class="drawer__toolbar-spacer"></div>
+  <div class="drawer__content">
     <nav id="icon-with-text-demo" class="solid_list">
       <a class="list_item list_item_activated" href="#">
         <i class="material-icons list_item_graphic" aria-hidden="true">inbox</i>Inbox
@@ -76,7 +76,7 @@ Permanent drawers can also be set below the toolbar:
 <div>Toolbar goes here</div>
 
 <div class="content">
-  <nav class="mdc-drawer mdc-drawer--permanent typography">
+  <nav class="drawer drawer--permanent typography">
     <nav id="icon-with-text-demo" class="solid_list">
       <a class="list_item list_item_activated" href="#">
         <i class="material-icons list_item_graphic" aria-hidden="true">inbox</i>Inbox
@@ -96,9 +96,9 @@ CSS classes:
 
 | Class                                  | Description                                                                |
 | -------------------------------------- | -------------------------------------------------------------------------- |
-| `mdc-drawer`                           | Mandatory. Needs to be set on the root element of the component.           |
-| `mdc-drawer--permanent`                | Mandatory. Needs to be set on the root element of the component.           |
-| `mdc-drawer__toolbar-spacer`           | Optional. Add to node to provide the matching amount of space for toolbar. |
+| `drawer`                           | Mandatory. Needs to be set on the root element of the component.           |
+| `drawer--permanent`                | Mandatory. Needs to be set on the root element of the component.           |
+| `drawer__toolbar-spacer`           | Optional. Add to node to provide the matching amount of space for toolbar. |
 
 ## Persistent drawer usage
 
@@ -107,14 +107,14 @@ Persistent drawers can be toggled open or closed. The drawer sits on the same su
 Persistent drawers are acceptable for all sizes larger than mobile.
 
 ```html
-<aside class="mdc-drawer mdc-drawer--persistent typography">
-  <nav class="mdc-drawer__drawer">
-    <header class="mdc-drawer__header">
-      <div class="mdc-drawer__header-content">
+<aside class="drawer drawer--persistent typography">
+  <nav class="drawer__drawer">
+    <header class="drawer__header">
+      <div class="drawer__header-content">
         Header here
       </div>
     </header>
-    <nav id="icon-with-text-demo" class="mdc-drawer__content solid_list">
+    <nav id="icon-with-text-demo" class="drawer__content solid_list">
       <a class="list_item list_item_activated" href="#">
         <i class="material-icons list_item_graphic" aria-hidden="true">inbox</i>Inbox
       </a>
@@ -127,7 +127,7 @@ Persistent drawers are acceptable for all sizes larger than mobile.
 ```
 
 ```js
-let drawer = new mdc.drawer.MDCPersistentDrawer(document.querySelector('.mdc-drawer--persistent'));
+let drawer = new mdc.drawer.MDCPersistentDrawer(document.querySelector('.drawer--persistent'));
 document.querySelector('.menu').addEventListener('click', () => drawer.open = true);
 ```
 
@@ -135,27 +135,27 @@ CSS classes:
 
 | Class                                   | Description                                                                |
 | --------------------------------------- | -------------------------------------------------------------------------- |
-| `mdc-drawer`                            | Mandatory. Needs to be set on the root element of the component.           |
-| `mdc-drawer--persistent`                | Mandatory. Needs to be set on the root element of the component.           |
-| `mdc-drawer__drawer`                    | Mandatory. Needs to be set on the container node for the drawer content.   |
+| `drawer`                            | Mandatory. Needs to be set on the root element of the component.           |
+| `drawer--persistent`                | Mandatory. Needs to be set on the root element of the component.           |
+| `drawer__drawer`                    | Mandatory. Needs to be set on the container node for the drawer content.   |
 
 ### Sass Mixins
 
 To customize the fill color, the ink color, or scrim color (transparent mask found in the temporary drawer), you can use the following mixins.
 
-#### `mdc-drawer-fill-color($color)`
+#### `drawer-fill-color($color)`
 
 This mixin customizes the fill (background) color of the drawer.
 
-#### `mdc-drawer-ink-color($color)`
+#### `drawer-ink-color($color)`
 
 This mixin customizes the ink color (font / copy color) of the drawer.
 
-#### `mdc-drawer-fill-color-accessible($color)`
+#### `drawer-fill-color-accessible($color)`
 
 This mixin customizes the fill color of the drawer. It also sets the ink color to an accessible complement of the fill.
 
-#### `mdc-drawer-scrim-color($color, $opacity)`
+#### `drawer-scrim-color($color, $opacity)`
 
 This mixin customizes the color and opacity of the scrim. (temporary drawer only)
 
@@ -175,7 +175,7 @@ import {MDCPersistentDrawer, MDCPersistentDrawerFoundation, util} from '@materia
 ##### CommonJS
 
 ```javascript
-const mdcDrawer = require('mdc-drawer');
+const mdcDrawer = require('drawer');
 const MDCPersistentDrawer = mdcDrawer.MDCPersistentDrawer;
 const MDCPersistentDrawerFoundation = mdcDrawer.MDCPersistentDrawerFoundation;
 const util = mdcDrawer.util;
@@ -184,7 +184,7 @@ const util = mdcDrawer.util;
 ##### AMD
 
 ```javascript
-require(['path/to/mdc-drawer'], mdcDrawer => {
+require(['path/to/drawer'], mdcDrawer => {
   const MDCPersistentDrawer = mdcDrawer.MDCPersistentDrawer;
   const MDCPersistentDrawerFoundation = mdcDrawer.MDCPersistentDrawerFoundation;
   const util = mdcDrawer.util;
@@ -205,7 +205,7 @@ If you do not care about retaining the component instance for the persistent dra
 and pass it a DOM element.
 
 ```javascript
-mdc.drawer.MDCPersistentDrawer.attachTo(document.querySelector('.mdc-drawer--persistent'));
+mdc.drawer.MDCPersistentDrawer.attachTo(document.querySelector('.drawer--persistent'));
 ```
 
 #### Manual Instantiation
@@ -215,7 +215,7 @@ Persistent drawers can easily be initialized using their default constructors as
 ```javascript
 import {MDCPersistentDrawer} from '@material/drawer';
 
-const drawer = new MDCPersistentDrawer(document.querySelector('.mdc-drawer--persistent'));
+const drawer = new MDCPersistentDrawer(document.querySelector('.drawer--persistent'));
 ```
 
 #### Handling events
@@ -236,7 +236,7 @@ The adapter for persistent drawers must provide the following functions, with co
 | `addClass(className: string) => void` | Adds a class to the root element. |
 | `removeClass(className: string) => void` | Removes a class from the root element. |
 | `hasClass(className: string) => boolean` | Returns boolean indicating whether element has a given class. |
-| `hasNecessaryDom() => boolean` | Returns boolean indicating whether the necessary DOM is present (namely, the `mdc-drawer__drawer` drawer container). |
+| `hasNecessaryDom() => boolean` | Returns boolean indicating whether the necessary DOM is present (namely, the `drawer__drawer` drawer container). |
 | `registerInteractionHandler(evt: string, handler: EventListener) => void` | Adds an event listener to the root element, for the specified event name. |
 | `deregisterInteractionHandler(evt: string, handler: EventListener) => void` | Removes an event listener from the root element, for the specified event name. |
 | `registerDrawerInteractionHandler(evt: string, handler: EventListener) => void` | Adds an event listener to the drawer container sub-element, for the specified event name. |
@@ -262,14 +262,14 @@ A temporary drawer is usually closed, sliding out at a higher elevation than the
 for any display size.
 
 ```html
-<aside class="mdc-drawer mdc-drawer--temporary typography">
-  <nav class="mdc-drawer__drawer">
-    <header class="mdc-drawer__header">
-      <div class="mdc-drawer__header-content">
+<aside class="drawer drawer--temporary typography">
+  <nav class="drawer__drawer">
+    <header class="drawer__header">
+      <div class="drawer__header-content">
         Header here
       </div>
     </header>
-    <nav id="icon-with-text-demo" class="mdc-drawer__content solid_list">
+    <nav id="icon-with-text-demo" class="drawer__content solid_list">
       <a class="list_item list_item_activated" href="#">
         <i class="material-icons list_item_graphic" aria-hidden="true">inbox</i>Inbox
       </a>
@@ -282,7 +282,7 @@ for any display size.
 ```
 
 ```js
-let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector('.mdc-drawer--temporary'));
+let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector('.drawer--temporary'));
 document.querySelector('.menu').addEventListener('click', () => drawer.open = true);
 ```
 
@@ -294,12 +294,12 @@ A toolbar spacer adds to the drawer the same amount of space that the toolbar ta
 very useful for visual alignment and consistency. Note that you can place content inside the toolbar spacer.
 
 ```html
-<aside class="mdc-drawer mdc-drawer--temporary typography">
-  <nav class="mdc-drawer__drawer">
+<aside class="drawer drawer--temporary typography">
+  <nav class="drawer__drawer">
 
-    <div class="mdc-drawer__toolbar-spacer"></div>
+    <div class="drawer__toolbar-spacer"></div>
 
-    <nav id="icon-with-text-demo" class="mdc-drawer__content solid_list">
+    <nav id="icon-with-text-demo" class="drawer__content solid_list">
       <a class="list_item list_item_activated" href="#">
         <i class="material-icons list_item_graphic" aria-hidden="true">inbox</i>Inbox
       </a>
@@ -313,20 +313,20 @@ very useful for visual alignment and consistency. Note that you can place conten
 
 A header, on the other hand, is a large rectangular area that maintains a 16:9 ratio. It's often used for user account
 selection.
-It uses an outer `mdc-drawer__header` for positioning, with an inner `mdc-drawer__header-content`
+It uses an outer `drawer__header` for positioning, with an inner `drawer__header-content`
 for placing the actual content, which will be bottom-aligned.
 
 ```html
-<aside class="mdc-drawer mdc-drawer--temporary typography">
-  <nav class="mdc-drawer__drawer">
+<aside class="drawer drawer--temporary typography">
+  <nav class="drawer__drawer">
 
-    <header class="mdc-drawer__header">
-      <div class="mdc-drawer__header-content">
+    <header class="drawer__header">
+      <div class="drawer__header-content">
         Header content goes here
       </div>
     </header>
 
-    <nav id="icon-with-text-demo" class="mdc-drawer__content solid_list">
+    <nav id="icon-with-text-demo" class="drawer__content solid_list">
       <a class="list_item list_item_activated" href="#">
         <i class="material-icons list_item_graphic" aria-hidden="true">inbox</i>Inbox
       </a>
@@ -342,13 +342,13 @@ CSS classes:
 
 | Class                                  | Description                                                                |
 | -------------------------------------- | -------------------------------------------------------------------------- |
-| `mdc-drawer`                           | Mandatory. Needs to be set on the root element of the component.           |
-| `mdc-drawer--temporary`                | Mandatory. Needs to be set on the root element of the component.           |
-| `mdc-drawer__drawer`                   | Mandatory. Needs to be set on the container node for the drawer content.   |
-| `mdc-drawer__content`                  | Optional. Should be set on the list of items inside the drawer.            |
-| `mdc-drawer__toolbar-spacer`           | Optional. Add to node to provide the matching amount of space for toolbar. |
-| `mdc-drawer__header`                   | Optional. Add to container node to create a 16:9 drawer header.            |
-| `mdc-drawer__header-content`           | Optional. Add to content node inside `mdc-temporary-drawer__header`.       |
+| `drawer`                           | Mandatory. Needs to be set on the root element of the component.           |
+| `drawer--temporary`                | Mandatory. Needs to be set on the root element of the component.           |
+| `drawer__drawer`                   | Mandatory. Needs to be set on the container node for the drawer content.   |
+| `drawer__content`                  | Optional. Should be set on the list of items inside the drawer.            |
+| `drawer__toolbar-spacer`           | Optional. Add to node to provide the matching amount of space for toolbar. |
+| `drawer__header`                   | Optional. Add to container node to create a 16:9 drawer header.            |
+| `drawer__header-content`           | Optional. Add to content node inside `mdc-temporary-drawer__header`.       |
 
 ### Using the JS Component
 
@@ -366,7 +366,7 @@ import {MDCTemporaryDrawer, MDCTemporaryDrawerFoundation, util} from '@material/
 ##### CommonJS
 
 ```javascript
-const mdcDrawer = require('mdc-drawer--temporary');
+const mdcDrawer = require('drawer--temporary');
 const MDCTemporaryDrawer = mdcDrawer.MDCTemporaryDrawer;
 const MDCTemporaryDrawerFoundation = mdcDrawer.MDCTemporaryDrawerFoundation;
 const util = mdcDrawer.util;
@@ -375,7 +375,7 @@ const util = mdcDrawer.util;
 ##### AMD
 
 ```javascript
-require(['path/to/mdc-drawer'], mdcDrawer => {
+require(['path/to/drawer'], mdcDrawer => {
   const MDCTemporaryDrawer = mdcDrawer.MDCTemporaryDrawer;
   const MDCTemporaryDrawerFoundation = mdcDrawer.MDCTemporaryDrawerFoundation;
   const util = mdcDrawer.util;
@@ -396,7 +396,7 @@ If you do not care about retaining the component instance for the temporary draw
 and pass it a DOM element.
 
 ```javascript
-mdc.drawer.MDCTemporaryDrawer.attachTo(document.querySelector('.mdc-drawer--temporary'));
+mdc.drawer.MDCTemporaryDrawer.attachTo(document.querySelector('.drawer--temporary'));
 ```
 
 #### Manual Instantiation
@@ -406,7 +406,7 @@ Temporary drawers can easily be initialized using their default constructors as 
 ```javascript
 import {MDCTemporaryDrawer} from '@material/drawer';
 
-const drawer = new MDCTemporaryDrawer(document.querySelector('.mdc-drawer--temporary'));
+const drawer = new MDCTemporaryDrawer(document.querySelector('.drawer--temporary'));
 ```
 
 #### Handling events
@@ -430,7 +430,7 @@ The adapter for temporary drawers must provide the following functions, with cor
 | `eventTargetHasClass(target: EventTarget, className: string) => boolean` | Returns true if target has className, false otherwise. |
 | `addBodyClass(className: string) => void` | Adds a class to the body. |
 | `removeBodyClass(className: string) => void` | Removes a class from the body. |
-| `hasNecessaryDom() => boolean` | Returns boolean indicating whether the necessary DOM is present (namely, the `mdc-drawer__drawer` drawer container). |
+| `hasNecessaryDom() => boolean` | Returns boolean indicating whether the necessary DOM is present (namely, the `drawer__drawer` drawer container). |
 | `registerInteractionHandler(evt: string, handler: EventListener) => void` | Adds an event listener to the root element, for the specified event name. |
 | `deregisterInteractionHandler(evt: string, handler: EventListener) => void` | Removes an event listener from the root element, for the specified event name. |
 | `registerDrawerInteractionHandler(evt: string, handler: EventListener) => void` | Adds an event listener to the drawer container sub-element, for the specified event name. |

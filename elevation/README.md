@@ -48,35 +48,35 @@ can apply the following CSS classes.
 
 CSS Class | Description
 --- | ---
-`mdc-elevation--z<N>` | Sets the elevation to the (N)dp, where 1 <= N <= 24
-`mdc-elevation-transition` | Applies the correct css rules to transition an element between elevations
+`elevation--z<N>` | Sets the elevation to the (N)dp, where 1 <= N <= 24
+`elevation-transition` | Applies the correct css rules to transition an element between elevations
 
 ### Sass Mixins, Variables, and Functions
 
 Mixin | Description
 --- | ---
-`mdc-elevation($z-value, $color, $opacity-boost)` | Sets the elevation to the z-space for that given elevation, and optionally sets the color and/or boosts the opacity of the shadow
+`elevation($z-value, $color, $opacity-boost)` | Sets the elevation to the z-space for that given elevation, and optionally sets the color and/or boosts the opacity of the shadow
 
 Function | Description
 --- | ---
-`mdc-elevation-transition-value($duration, $easing)` | Returns a value for the `transition` property to transition an element between elevations
+`elevation-transition-value($duration, $easing)` | Returns a value for the `transition` property to transition an element between elevations
 
 Variable | Description
 --- | ---
-`mdc-elevation-property` | Default property for elevation transitions
-`mdc-elevation-transition-duration` | Default duration value for elevation transitions
-`mdc-elevation-transition-timing-function` | Default easing value for elevation transitions
+`elevation-property` | Default property for elevation transitions
+`elevation-transition-duration` | Default duration value for elevation transitions
+`elevation-transition-timing-function` | Default easing value for elevation transitions
 
-If you need more configurability over your transitions, use the `mdc-elevation-transition-value` function in conjunction with the exported sass variables.
+If you need more configurability over your transitions, use the `elevation-transition-value` function in conjunction with the exported sass variables.
 
 ```scss
 .my-component-with-custom-transitions {
 
   transition:
-    mdc-elevation-transition-value(),
+    elevation-transition-value(),
     /* Configure opacity to use same duration and easing values as elevation */
-    opacity $mdc-elevation-transition-duration $mdc-elevation-transition-timing-function;
+    opacity $elevation-transition-duration $elevation-transition-timing-function;
   opacity: .7;
-  will-change: $mdc-elevation-property, opacity;
+  will-change: $elevation-property, opacity;
 }
 ```

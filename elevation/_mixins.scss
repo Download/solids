@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -23,7 +23,7 @@
 // The $z-value must be between 0 and 24.
 // If $color has an alpha channel, it will be ignored and overridden. To increase the opacity of the shadow, use
 // $opacity-boost.
-@mixin mdc-elevation($z-value, $color: $mdc-elevation-baseline-color, $opacity-boost: 0) {
+@mixin elevation($z-value, $color: $elevation-baseline-color, $opacity-boost: 0) {
   @if type-of($z-value) != number or not unitless($z-value) {
     @error "$z-value must be a unitless number, but received '#{$z-value}'";
   }
@@ -40,13 +40,13 @@
     @error "$color must be a valid color, but '#{$color}' is of type #{type-of($color)}";
   }
 
-  $umbra-z-value: map-get($mdc-elevation-umbra-map, $z-value);
-  $penumbra-z-value: map-get($mdc-elevation-penumbra-map, $z-value);
-  $ambient-z-value: map-get($mdc-elevation-ambient-map, $z-value);
+  $umbra-z-value: map-get($elevation-umbra-map, $z-value);
+  $penumbra-z-value: map-get($elevation-penumbra-map, $z-value);
+  $ambient-z-value: map-get($elevation-ambient-map, $z-value);
 
-  $umbra-color: rgba($color, $mdc-elevation-umbra-opacity + $opacity-boost);
-  $penumbra-color: rgba($color, $mdc-elevation-penumbra-opacity + $opacity-boost);
-  $ambient-color: rgba($color, $mdc-elevation-ambient-opacity + $opacity-boost);
+  $umbra-color: rgba($color, $elevation-umbra-opacity + $opacity-boost);
+  $penumbra-color: rgba($color, $elevation-penumbra-opacity + $opacity-boost);
+  $ambient-color: rgba($color, $elevation-ambient-opacity + $opacity-boost);
 
   box-shadow:
     #{"#{$umbra-z-value} #{$umbra-color}"},
@@ -60,12 +60,12 @@
 //
 // ```scss
 // .foo {
-//   transition: mdc-elevation-transition-value(), opacity 100ms ease;
-//   will-change: $mdc-elevation-property, opacity;
+//   transition: elevation-transition-value(), opacity 100ms ease;
+//   will-change: $elevation-property, opacity;
 // }
 // ```
-@function mdc-elevation-transition-value(
-  $duration: $mdc-elevation-transition-duration,
-  $easing: $mdc-elevation-transition-timing-function) {
-  @return #{$mdc-elevation-property} #{$duration} #{$easing};
+@function elevation-transition-value(
+  $duration: $elevation-transition-duration,
+  $easing: $elevation-transition-timing-function) {
+  @return #{$elevation-property} #{$duration} #{$easing};
 }

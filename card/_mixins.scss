@@ -1,5 +1,5 @@
 //
-// Copyright 2018 Stijn de Witt. Some rights reserved.
+// Copyright 2019 Stijn de Witt. Some rights reserved.
 // Licensed under the MIT Open Source license. 
 // https://opensource.org/licenses/MIT
 // See LICENSE for details.
@@ -22,19 +22,19 @@
 // Public
 //
 
-@mixin mdc-card-fill-color($color) {
+@mixin card-fill-color($color) {
   @include mdc-theme-prop(background-color, $color);
 }
 
-@mixin mdc-card-outline($color, $thickness: $mdc-card-outline-width) {
+@mixin card-outline($color, $thickness: $card-outline-width) {
   border: $thickness solid mdc-theme-prop-value($color);
 }
 
-@mixin mdc-card-corner-radius($radius) {
+@mixin card-corner-radius($radius) {
   border-radius: $radius;
 }
 
-@mixin mdc-card-media-aspect-ratio($x, $y) {
+@mixin card-media-aspect-ratio($x, $y) {
   &::before {
     // This clever trick brought to you by: http://www.mademyday.de/css-height-equals-width-with-pure-css.html
     margin-top: percentage($y / $x);
@@ -45,20 +45,20 @@
 // Private
 //
 
-@mixin mdc-card-container-layout_ {
+@mixin card-container-layout_ {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
-@mixin mdc-card-actions-layout_($display: flex) {
+@mixin card-actions-layout_($display: flex) {
   display: $display;
   flex-direction: row;
   align-items: center;
   box-sizing: border-box;
 }
 
-@mixin mdc-card-media-aspect-ratio-base_ {
+@mixin card-media-aspect-ratio-base_ {
   &::before {
     display: block;
     content: "";
