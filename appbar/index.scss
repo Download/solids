@@ -54,9 +54,9 @@
       min-width: 0;
       padding: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
       z-index: 1;
+      justify-content: flex-start;
   
       &.start {
-        justify-content: flex-start;
         order: -1;
         &.reserve {
           @include mdc-rtl-reflexive-box(margin, left, 48px);
@@ -64,10 +64,56 @@
       }
   
       &.end {
-        justify-content: flex-end;
-        order: 1;
+        flex-direction: row-reverse;
+        .anchor {
+          .menu {
+            transform-origin: top right;
+          }
+          > input[type=checkbox] {
+            &:checked {
+              ~ .menu {
+                left: initial;
+                right: 0;
+              }
+            }
+          }
+          &:nth-child(1) > input[type=checkbox]:checked ~ label {
+            left: calc(-100vw + 48px + #{$appbar-section-horizontal-padding});
+            padding-left: calc(100vw - 48px - #{$appbar-section-horizontal-padding});
+          }
+          &:nth-child(2) > input[type=checkbox]:checked ~ label {
+            left: calc(-100vw + 96px + #{$appbar-section-horizontal-padding});
+            padding-left: calc(100vw - 96px - #{$appbar-section-horizontal-padding});
+          }
+          &:nth-child(3) > input[type=checkbox]:checked ~ label {
+            left: calc(-100vw + 144px + #{$appbar-section-horizontal-padding});
+            padding-left: calc(100vw - 144px - #{$appbar-section-horizontal-padding});
+          }
+          &:nth-child(4) > input[type=checkbox]:checked ~ label {
+            left: calc(-100vw + 192px + #{$appbar-section-horizontal-padding});
+            padding-left: calc(100vw - 192px - #{$appbar-section-horizontal-padding});
+          }
+        }
         &.reserve {
           @include mdc-rtl-reflexive-box(margin, right, 48px);
+          .anchor {
+            &:nth-child(1) > input[type=checkbox]:checked ~ label {
+              left: calc(-100vw + 96px + #{$appbar-section-horizontal-padding});
+              padding-left: calc(100vw - 96px - #{$appbar-section-horizontal-padding});
+            }
+            &:nth-child(2) > input[type=checkbox]:checked ~ label {
+              left: calc(-100vw + 144px + #{$appbar-section-horizontal-padding});
+              padding-left: calc(100vw - 144px - #{$appbar-section-horizontal-padding});
+            }
+            &:nth-child(3) > input[type=checkbox]:checked ~ label {
+              left: calc(-100vw + 192px + #{$appbar-section-horizontal-padding});
+              padding-left: calc(100vw - 192px - #{$appbar-section-horizontal-padding});
+            }
+            &:nth-child(4) > input[type=checkbox]:checked ~ label {
+              left: calc(-100vw + 240px + #{$appbar-section-horizontal-padding});
+              padding-left: calc(100vw - 240px - #{$appbar-section-horizontal-padding});
+            }
+          }            
         }
       }
 
@@ -85,6 +131,22 @@
   .action,
   .icon {
     @include appbar-icon_;
+  }
+
+  .anchor {
+    width: 48px;
+    height: 48px;
+    > input[type=checkbox]:checked {
+      ~ label {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+      }
+      ~ .menu {
+        top: 48px;
+        left: 0;
+      }
+    }
   }
 
   &~ main {
@@ -376,6 +438,9 @@
     }
   }
 }
+
+
+
 
 // Mobile Styles
 @include appbar-mobile-breakpoint_;

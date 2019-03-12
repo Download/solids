@@ -28,6 +28,7 @@
 
 .solids .drawer {
 	@include solid_drawer_base();
+	color: $appbar-fill-color;
 	@include appbar-icon-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
 
 	&.permanent {
@@ -167,11 +168,10 @@
 }
 
 @media(max-width: $appbar-mobile-breakpoint) {
-	.solids .drawer {
-		>label {
-			top: -($appbar-mobile-row-height + 16px);
-      padding: $appbar-mobile-section-padding;
-		}
+	.solids .drawer >label,
+	.solids .drawer.end >label {
+		top: -($appbar-mobile-row-height + 16px);
+		padding: $appbar-mobile-section-padding;
 	}
   .solids .appbar:not(.fixed) ~ .drawer >label {
 		top: -($appbar-mobile-row-height + 16px);

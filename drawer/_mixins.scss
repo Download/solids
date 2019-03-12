@@ -129,7 +129,7 @@
   >label {
     position: absolute;
     top: 0;
-    padding: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
+    padding: $appbar-section-vertical-padding 0 $appbar-section-vertical-padding $appbar-section-horizontal-padding;
     cursor: pointer;
     z-index: 1;
     user-select: none;
@@ -153,7 +153,10 @@
 
   // right-hand side drawer (in ltr)
   &.end {
-    /*
+    >label {
+      padding: $appbar-section-vertical-padding $appbar-section-horizontal-padding $appbar-section-vertical-padding 0;
+    }
+      /*
     float: right;
     @include mdc-rtl {
       float: left;

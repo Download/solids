@@ -16,30 +16,7 @@
 // limitations under these licenses.
 // 
 
-//@import "../typography/mixins";
-@import "../theme/variables";
-@import "../theme/mixins";
-@import "../theme/properties";
-
-
-.solids {
-	@include mdc-theme-prop(background-color, $mdc-theme-background);
-
-	position: relative;
-
-	&::after {
-		content: '';
-		display: table;
-		clear: both;
-	}
-
-	.appbar ~ main {
-		display: table-cell;
-		padding: 0 20px 20px 20px;
-	}
-
-	img {
-		max-width: 100%;
-	}
-}
-
+module.exports = {
+	menu: 'menu',
+	anchor: 'anchor',
+};

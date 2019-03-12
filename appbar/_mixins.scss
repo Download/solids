@@ -59,6 +59,48 @@
         height: $appbar-mobile-row-height;
         >section {
           padding: $appbar-mobile-section-padding;
+          &.end {
+            .anchor {
+              &:nth-child(1) > input[type=checkbox]:checked ~ label {
+                left: calc(-100vw + 48px + #{$appbar-mobile-section-padding});
+                padding-left: calc(100vw - 48px - #{$appbar-mobile-section-padding});
+              }
+              &:nth-child(2) > input[type=checkbox]:checked ~ label {
+                left: calc(-100vw + 96px + #{$appbar-mobile-section-padding});
+                padding-left: calc(100vw - 96px - #{$appbar-mobile-section-padding});
+              }
+              &:nth-child(3) > input[type=checkbox]:checked ~ label {
+                left: calc(-100vw + 144px + #{$appbar-mobile-section-padding});
+                padding-left: calc(100vw - 144px - #{$appbar-mobile-section-padding});
+              }
+              &:nth-child(4) > input[type=checkbox]:checked ~ label {
+                left: calc(-100vw + 192px + #{$appbar-mobile-section-padding});
+                padding-left: calc(100vw - 192px - #{$appbar-mobile-section-padding});
+              }
+            }
+            &.reserve {
+              @include mdc-rtl-reflexive-box(margin, right, 48px);
+              .anchor {
+                &:nth-child(1) > input[type=checkbox]:checked ~ label {
+                  left: calc(-100vw + 96px + #{$appbar-mobile-section-padding});
+                  padding-left: calc(100vw - 96px - #{$appbar-mobile-section-padding});
+                }
+                &:nth-child(2) > input[type=checkbox]:checked ~ label {
+                  left: calc(-100vw + 144px + #{$appbar-mobile-section-padding});
+                  padding-left: calc(100vw - 144px - #{$appbar-mobile-section-padding});
+                }
+                &:nth-child(3) > input[type=checkbox]:checked ~ label {
+                  left: calc(-100vw + 192px + #{$appbar-mobile-section-padding});
+                  padding-left: calc(100vw - 192px - #{$appbar-mobile-section-padding});
+                }
+                &:nth-child(4) > input[type=checkbox]:checked ~ label {
+                  left: calc(-100vw + 240px + #{$appbar-mobile-section-padding});
+                  padding-left: calc(100vw - 240px - #{$appbar-mobile-section-padding});
+                }
+              }            
+            }
+          }
+    
         }
       }
 

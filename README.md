@@ -3,6 +3,7 @@
 
 [![npm](https://img.shields.io/npm/v/solids.svg)](https://npmjs.com/package/solids)
 [![license](https://img.shields.io/npm/l/solids.svg)](https://creativecommons.org/licenses/by/4.0/)
+![installs](https://img.shields.io/npm/dt/solids.svg)
 ![mind BLOWN](https://img.shields.io/badge/mind-BLOWN-ff69b4.svg)
 
 <sup><sub><sup><sub>.</sub></sup></sub></sup>
@@ -146,11 +147,13 @@ to let me know of any problems you find, or questions you may have.
 Credits go to:
 * The Material Design and MDC teams at Google
 * [Ben Mildren](https://github.com/mildrenben) for inspiring the world with [Surface](https://mildrenben.github.io/surface/).
+* [Jason Miller](https://github.com/developit) for building [Preact](https://preactjs.com)
+* [Prateek Bhatnagar](https://github.com/prateekbh) for building [preact-material-components](https://github.com/prateekbh/preact-material-components)
 
 
 ## Copyright
 
-Copyright 2019 by [Stijn de Witt](http://StijnDeWitt.com). Some rights reserved.
+© 2019 by [Stijn de Witt](http://StijnDeWitt.com). Some rights reserved.
 
 
 ## License
