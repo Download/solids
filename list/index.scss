@@ -122,7 +122,7 @@
     }
   }
 
-  &:not(.interactive) >.item {
+  &:not(.non_interactive) >.item {
     // List items should support states by default, but it should be possible to opt out.
     // Direct child combinator is necessary for non-interactive modifier on parent to not match this selector.
     @include mdc-ripple-surface;

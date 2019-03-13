@@ -1,6 +1,6 @@
 {
   "name": "solids",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "CSS-only Material Design Primitives",
   "main": "index.js",
   "files": [
