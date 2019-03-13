@@ -58,8 +58,16 @@
       >div {
         height: $appbar-mobile-row-height;
         >section {
-          padding: $appbar-mobile-section-padding;
+          padding: $appbar-mobile-section-padding $appbar-mobile-section-padding $appbar-mobile-section-padding 0;
+          .anchor > input[type=checkbox]:checked ~ label {
+            top: -$appbar-mobile-section-padding;
+            padding-top: $appbar-mobile-section-padding;
+          }
+          .title {
+            @include mdc-rtl-reflexive-box(padding, left, $appbar-mobile-title-left-padding);
+          }
           &.end {
+            padding: $appbar-mobile-section-padding 0 $appbar-mobile-section-padding $appbar-mobile-section-padding;
             .anchor {
               &:nth-child(1) > input[type=checkbox]:checked ~ label {
                 left: calc(-100vw + 48px + #{$appbar-mobile-section-padding});

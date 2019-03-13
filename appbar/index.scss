@@ -59,7 +59,7 @@
       &.start {
         order: -1;
         &.reserve {
-          @include mdc-rtl-reflexive-box(margin, left, 48px);
+          @include mdc-rtl-reflexive-box(margin, left, 48px + $appbar-section-horizontal-padding);
         }
       }
   
@@ -95,7 +95,8 @@
           }
         }
         &.reserve {
-          @include mdc-rtl-reflexive-box(margin, right, 48px);
+          @include mdc-rtl-reflexive-box(margin, right, 48px + $appbar-section-horizontal-padding);
+          padding-right: 0;
           .anchor {
             &:nth-child(1) > input[type=checkbox]:checked ~ label {
               left: calc(-100vw + 96px + #{$appbar-section-horizontal-padding});
@@ -140,7 +141,8 @@
       ~ label {
         width: 100vw;
         height: 100vh;
-        top: 0;
+        top: -$appbar-section-vertical-padding;
+        padding-top: $appbar-section-vertical-padding;
       }
       ~ .menu {
         top: 48px;
@@ -220,7 +222,16 @@
         .title {
           @include mdc-rtl-reflexive-box(padding, left, $appbar-dense-title-left-padding);
         }
+
+        &.end.reserve {
+          padding-right: 0;
+        }
       }
+    }
+
+    .anchor > input[type=checkbox]:checked ~ label {
+      top: 0;
+      padding-top: 0;
     }
 
     &~ main {
@@ -235,9 +246,11 @@
       >section {
         align-items: flex-end;
 
-        .action,
-        .icon {
+        > * {
           align-self: flex-start;
+        }
+        > .title {
+          align-self: auto;
         }
       }
     }
@@ -254,10 +267,10 @@
       height: $appbar-dense-row-height * 2;
 
       >section {
-        padding: 8px $appbar-section-horizontal-padding;
+        padding: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
 
         &.end {
-          height: $appbar-dense-row-height + 8px;
+          height: $appbar-dense-row-height + $appbar-section-vertical-padding;
         }
 
         .title {
@@ -265,8 +278,7 @@
           padding-bottom: 0;
         }
 
-        .action,
-        .icon {
+        > * {
           align-self: auto;
         }
       }

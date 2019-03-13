@@ -78,9 +78,10 @@ $mdc-menu-scale-duration: .12s;
     outline: none;
   }
 
+  /*
   .list {
     box-sizing: border-box;
-    transform: scale(1);
+//    transform: scale(1);
     overflow-x: hidden;
     overflow-y: auto;
     will-change: transform;
@@ -88,7 +89,7 @@ $mdc-menu-scale-duration: .12s;
     .item {
       @include typography(subtitle1);
       cursor: pointer;
-      position: relative;
+//      position: relative;
       outline: none;
       color: inherit;
       text-decoration: none;
@@ -111,7 +112,7 @@ $mdc-menu-scale-duration: .12s;
       }
     }
   }
-
+*/
   [dir="rtl"] & {
     transform-origin: top right;
   }

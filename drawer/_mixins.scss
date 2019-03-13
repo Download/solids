@@ -520,117 +520,133 @@
 
 
 @mixin solid_drawer_base_appbar_styles() {
-  .solids .appbar.dense {
-
-    &~ .drawer {
-      >label {
-        padding: 0 $appbar-section-horizontal-padding;
-      }
-
-      &.fixed {
-        >div >div {
-          margin-bottom: -$appbar-dense-row-height;
-        }
-      }
-    }
-/*
-    &~ .drawer:not(.fixed) >div >div::before {
-      top: $appbar-dense-row-height + 16px;
-    }
-*/
-    /*
-    &~ .drawer:not(.fixed) >div >div::before {
-      top: $appbar-dense-row-height + 16px;
-    }
-    */
-
-    &:not(.fixed) { 
-      &~ .drawer.fixed >label {
-        top: -($appbar-dense-row-height + 16px);
-      }
-    }
-
+  .solids .appbar {
     &.fixed {
       &~ .drawer.fixed {
-        top: $appbar-dense-row-height + 16px;
+        top: $appbar-row-height + 16px;
         >div >div {
-          height: calc(100vh - #{$appbar-dense-row-height} - 16px - 1px);
+          height: calc(100vh - #{$appbar-row-height} - 16px - 1px);
         }
       }
     }
 
-    &.prominent {
-      &~ .drawer.fixed {
-        >div >div {
-          margin-bottom: -$appbar-dense-row-height*2;
+    &.dense {
+      &~ .drawer {
+        >label {
+          padding: 0 0 0 $appbar-section-horizontal-padding;
+        }
+
+        &.end {
+          >label {
+            padding: 0 $appbar-section-horizontal-padding 0 0;
+          }
+        }
+
+        &.fixed {
+          >div >div {
+            margin-bottom: -$appbar-dense-row-height;
+          }
         }
       }
-/*
+  /*
       &~ .drawer:not(.fixed) >div >div::before {
-        top: $appbar-dense-row-height*2 + 16px;
+        top: $appbar-dense-row-height + 16px;
       }
-*/  
+  */
+      /*
+      &~ .drawer:not(.fixed) >div >div::before {
+        top: $appbar-dense-row-height + 16px;
+      }
+      */
+
       &:not(.fixed) { 
         &~ .drawer.fixed >label {
-          top: -($appbar-dense-row-height*2 + 16px);
+          top: -($appbar-dense-row-height + 16px);
         }
       }
 
       &.fixed {
-        &:not(.shrink) ~ .drawer.fixed {
-          top: $appbar-dense-row-height*2 + 16px;
-          >div >div {
-            height: calc(100vh - #{$appbar-dense-row-height*2} - 16px - 1px);
-          }
-        }
-        &.shrink ~ .drawer.fixed {
+        &~ .drawer.fixed {
           top: $appbar-dense-row-height + 16px;
           >div >div {
             height: calc(100vh - #{$appbar-dense-row-height} - 16px - 1px);
           }
         }
       }
-    }
 
-
-
-    /*
-    &~ .drawer {
-      >label {
-        padding: 0 $appbar-section-horizontal-padding;
-      }
-
-      >div >div::before {
-        top: $appbar-dense-row-height + 16px;
-      }
-
-      &.fixed {
-        >div >div {
-          height: calc(100vh - #{$appbar-dense-row-height} - 16px - 1px);
-        }
-      }
-    }
-  
-    &.prominent {
-      &:not(.fixed) { 
-        &~ .drawer {
-          >div >div::before {
-            top: $appbar-dense-row-height*2 + 16px;
+      &.prominent {
+        &~ .drawer.fixed {
+          >div >div {
+            margin-bottom: -$appbar-dense-row-height*2;
           }
         }
-      }
-      &.fixed {
-        &~ .drawer {
-          &.fixed {
+  /*
+        &~ .drawer:not(.fixed) >div >div::before {
+          top: $appbar-dense-row-height*2 + 16px;
+        }
+  */  
+        &:not(.fixed) { 
+          &~ .drawer.fixed >label {
+            top: -($appbar-dense-row-height*2 + 16px);
+          }
+        }
+
+        &.fixed {
+          &:not(.shrink) ~ .drawer.fixed {
             top: $appbar-dense-row-height*2 + 16px;
             >div >div {
               height: calc(100vh - #{$appbar-dense-row-height*2} - 16px - 1px);
             }
           }
+          &.shrink ~ .drawer.fixed {
+            top: $appbar-dense-row-height + 16px;
+            >div >div {
+              height: calc(100vh - #{$appbar-dense-row-height} - 16px - 1px);
+            }
+          }
         }
       }
+
+
+
+      /*
+      &~ .drawer {
+        >label {
+          padding: 0 $appbar-section-horizontal-padding;
+        }
+
+        >div >div::before {
+          top: $appbar-dense-row-height + 16px;
+        }
+
+        &.fixed {
+          >div >div {
+            height: calc(100vh - #{$appbar-dense-row-height} - 16px - 1px);
+          }
+        }
+      }
+    
+      &.prominent {
+        &:not(.fixed) { 
+          &~ .drawer {
+            >div >div::before {
+              top: $appbar-dense-row-height*2 + 16px;
+            }
+          }
+        }
+        &.fixed {
+          &~ .drawer {
+            &.fixed {
+              top: $appbar-dense-row-height*2 + 16px;
+              >div >div {
+                height: calc(100vh - #{$appbar-dense-row-height*2} - 16px - 1px);
+              }
+            }
+          }
+        }
+      }
+      */
     }
-    */
   }
 
 
