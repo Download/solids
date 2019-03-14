@@ -57,6 +57,7 @@
       justify-content: flex-start;
   
       &.start {
+        @include mdc-rtl-reflexive-box(margin, left, $appbar-section-horizontal-padding);
         order: -1;
         &.reserve {
           @include mdc-rtl-reflexive-box(margin, left, 48px + $appbar-section-horizontal-padding);
@@ -64,6 +65,7 @@
       }
   
       &.end {
+        @include mdc-rtl-reflexive-box(margin, right, $appbar-section-horizontal-padding);
         flex-direction: row-reverse;
         .anchor {
           .menu {
@@ -132,6 +134,12 @@
   .action,
   .icon {
     @include appbar-icon_;
+    > img {
+      max-width: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
   }
 
   .anchor {

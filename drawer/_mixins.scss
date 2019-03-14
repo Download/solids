@@ -162,7 +162,7 @@
       float: left;
     }
     >label {
-//      z-index: 0;
+      z-index: 0;
       right: 0;
       left: initial;
       @include mdc-rtl {
@@ -173,7 +173,7 @@
     */
   }
 
-  &.fixed {
+  &.fixed.end {
     z-index: 1;
 
     /*
@@ -295,6 +295,7 @@
   &.fixed {
     position: sticky;
     top: 16px;
+    z-index: 1;
 
     >div >div {
       height: calc(100vh - 16px - 1px);

@@ -66,7 +66,14 @@
           .title {
             @include mdc-rtl-reflexive-box(padding, left, $appbar-mobile-title-left-padding);
           }
+          &.start {
+            @include mdc-rtl-reflexive-box(margin, left, $appbar-mobile-section-padding);
+            &.reserve {
+              @include mdc-rtl-reflexive-box(margin, left, 48px + $appbar-mobile-section-padding);
+            }
+          }
           &.end {
+            @include mdc-rtl-reflexive-box(margin, right, $appbar-mobile-section-padding);
             padding: $appbar-mobile-section-padding 0 $appbar-mobile-section-padding $appbar-mobile-section-padding;
             .anchor {
               &:nth-child(1) > input[type=checkbox]:checked ~ label {
@@ -87,7 +94,7 @@
               }
             }
             &.reserve {
-              @include mdc-rtl-reflexive-box(margin, right, 48px);
+              @include mdc-rtl-reflexive-box(margin, right, 48px + $appbar-mobile-section-padding);
               .anchor {
                 &:nth-child(1) > input[type=checkbox]:checked ~ label {
                   left: calc(-100vw + 96px + #{$appbar-mobile-section-padding});
