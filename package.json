@@ -1,9 +1,10 @@
 {
   "name": "solids",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "CSS-only Material Design Primitives",
   "main": "index.js",
   "files": [
+    "action",
     "animation",
     "appbar",
     "base",
@@ -18,6 +19,7 @@
     "floating-label",
     "form-field",
     "grid-list",
+    "icon",
     "icon-toggle",
     "image-list",
     "layout-grid",
