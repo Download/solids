@@ -15,26 +15,9 @@
 // See the licenses for the specific language governing permissions and
 // limitations under these licenses.
 // 
-
 var solids = require('../solids/classes')
-var icon = require('../icon/classes')
-var action = require('../action/classes')
 
 module.exports = {
 	...solids,
-	...icon,
-	...action,
-	appbar: 'appbar',
-	fixed: 'fixed',
-	dense: 'dense',
-	prominent: 'prominent',
-	short: 'short',
-	collapsed: 'collapsed',
-	has_action: 'has_action',
-	shrink: 'shrink',
-	floating: 'floating',
-	start: 'start',
-	end: 'end',
-	reserve: 'reserve',
-	title: 'title',
-}
+	icon: 'icon',
+};

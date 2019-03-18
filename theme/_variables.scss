@@ -16,7 +16,7 @@
 // limitations under these licenses.
 // 
 
-// Modifications copyright 2018 by Stijn de Witt
+// Modifications copyright 2019 by Stijn de Witt
 // Licensed under the MIT license
 
 @import "./functions";
@@ -102,10 +102,6 @@ $mdc-theme-property-values: (
   text-disabled-on-dark: mdc-theme-ink-color-for-fill_(disabled, dark),
   text-icon-on-dark: mdc-theme-ink-color-for-fill_(icon, dark)
 );
-
-
-// Default dimensions/sizes
-$mdc-theme-sidebar-width: 280px !default;
 
 // If `$property` is a literal color value (e.g., `blue`, `#fff`), it is returned verbatim. Otherwise, the value of the
 // corresponding theme property (from `$mdc-theme-property-values`) is returned. If `$property` is not a color and no

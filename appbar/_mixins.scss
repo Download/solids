@@ -19,6 +19,7 @@
 @import "../animation/variables";
 @import "../ripple/common";
 @import "../ripple/mixins";
+@import "../icon/variables";
 @import "../theme/variables"; // for mdc-theme-accessible-ink-color
 @import "../theme/mixins";
 @import "./variables";
@@ -41,8 +42,7 @@
 }
 
 @mixin appbar-icon-ink-color($color) {
-  .action,
-  .icon {
+  .action {
     @include mdc-theme-prop(color, $color);
     @include mdc-states($color);
   }
@@ -69,7 +69,7 @@
           &.start {
             @include mdc-rtl-reflexive-box(margin, left, $appbar-mobile-section-padding);
             &.reserve {
-              @include mdc-rtl-reflexive-box(margin, left, 48px + $appbar-mobile-section-padding);
+              @include mdc-rtl-reflexive-box(margin, left, $icon-size + $appbar-mobile-section-padding);
             }
           }
           &.end {
@@ -169,7 +169,7 @@
   }
 }
 
-
+/*
 
 //
 // Private
@@ -200,3 +200,5 @@
   cursor: pointer;
   user-select: none;
 }
+
+*/

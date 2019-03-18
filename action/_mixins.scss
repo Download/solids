@@ -16,25 +16,15 @@
 // limitations under these licenses.
 // 
 
-var solids = require('../solids/classes')
-var icon = require('../icon/classes')
-var action = require('../action/classes')
+@import "../ripple/common";
+@import "../ripple/mixins";
 
-module.exports = {
-	...solids,
-	...icon,
-	...action,
-	appbar: 'appbar',
-	fixed: 'fixed',
-	dense: 'dense',
-	prominent: 'prominent',
-	short: 'short',
-	collapsed: 'collapsed',
-	has_action: 'has_action',
-	shrink: 'shrink',
-	floating: 'floating',
-	start: 'start',
-	end: 'end',
-	reserve: 'reserve',
-	title: 'title',
+
+@mixin action() {
+  @include mdc-ripple-surface;
+  @include mdc-ripple-radius-unbounded;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
 }

@@ -30,13 +30,21 @@
   @include appbar-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
   @include appbar-icon-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
 
+  /*
+  .action {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+  }
+  */
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 16px;
-  z-index: 1;
+//  z-index: 1;
 
   >div {
     display: flex;
@@ -44,20 +52,19 @@
     box-sizing: border-box;
     width: 100%;
     // make sure drawer button ripple falls over appbar action button
-    z-index: 0; 
+//    z-index: 0; 
 
     >section {
-//      @include appbar-fill-color-accessible(primary);
       display: inline-flex;
       flex: 1 1 auto;
       align-items: center;
       min-width: 0;
       padding: $appbar-section-vertical-padding $appbar-section-horizontal-padding;
-      z-index: 1;
+//      z-index: 1;
       justify-content: flex-start;
   
       &.start {
-        @include mdc-rtl-reflexive-box(margin, left, $appbar-section-horizontal-padding);
+        // @include mdc-rtl-reflexive-box(margin, left, $appbar-section-horizontal-padding);
         order: -1;
         &.reserve {
           @include mdc-rtl-reflexive-box(margin, left, 48px + $appbar-section-horizontal-padding);
@@ -65,7 +72,7 @@
       }
   
       &.end {
-        @include mdc-rtl-reflexive-box(margin, right, $appbar-section-horizontal-padding);
+        // @include mdc-rtl-reflexive-box(margin, right, $appbar-section-horizontal-padding);
         flex-direction: row-reverse;
         .anchor {
           .menu {
@@ -73,6 +80,11 @@
           }
           > input[type=checkbox] {
             &:checked {
+              ~ label .action {
+                display: block;
+                width: $icon-size + $icon-padding * 2;
+                height: $icon-size + $icon-padding * 2;
+              }
               ~ .menu {
                 left: initial;
                 right: 0;
@@ -126,21 +138,23 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        z-index: 1;
+//        z-index: 1;
       }
     }
   }
 
-  .action,
+/*
   .icon {
     @include appbar-icon_;
-    > img {
+
+    >img {
       max-width: none;
       width: 32px;
       height: 32px;
       border-radius: 50%;
     }
   }
+*/
 
   .anchor {
     width: 48px;
@@ -317,7 +331,7 @@
       position: sticky;
       top: 0px;
       margin-top: -16px;
-      z-index: 3;
+//      z-index: 3;
 
       >section {
         position: sticky;
@@ -348,7 +362,7 @@
 
     &::after {
       background: linear-gradient($mdc-theme-background 3px, rgba($mdc-theme-background, .95) 7px, rgba($mdc-theme-background, .6) 12px, transparent);
-      z-index: 2;
+//      z-index: 2;
       top: 0;
     }
 

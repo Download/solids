@@ -1,4 +1,7 @@
+var solids = require('../solids/classes')
+
 module.exports = {
+  ...solids,
    z0:  'z0',
    z1:  'z1',
    z2:  'z2',
@@ -24,5 +27,5 @@ module.exports = {
   z22: 'z22',
   z23: 'z23',
   z24: 'z24',
-  z_transition: 'z_transition'
+  z_transition: 'z_transition',
 }

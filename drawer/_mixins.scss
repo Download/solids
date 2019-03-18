@@ -141,9 +141,9 @@
     // }
       
     >a {
-      @include appbar-icon_;
+//      @include appbar-icon_;
 //      @include appbar-fill-color-accessible(primary);
-      @include appbar-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
+//      @include appbar-ink-color(mdc-theme-accessible-ink-color($appbar-fill-color));
     }
   }
 

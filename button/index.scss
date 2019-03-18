@@ -22,7 +22,8 @@
 @import "./variables";
 
 // postcss-bem-linter: define button
-.mdc-button {
+.solids button,
+.solids .button {
   @include mdc-button-base_;
   @include mdc-button-corner-radius(2px);
   @include mdc-button-container-fill-color(transparent);
@@ -33,12 +34,12 @@
   // class, which is loaded separately so the order of CSS definitions is not
   // guaranteed. Therefore, increase specifity by nesting this class to ensure
   // overrides apply.
-  .mdc-button__icon {
+  .icon {
     @include mdc-button__icon_;
   }
 
   // stylelint-disable-next-line selector-no-qualifying-type
-  svg.mdc-button__icon {
+  svg.icon {
     @include mdc-button__icon-svg_;
   }
 }

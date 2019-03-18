@@ -1,0 +1,835 @@
+$icon-size: 24px;
+$icon-padding: 12px;
+
+$menu-width: 192px;
+$appbar-shadow-height: 8px;
+
+/* regular phone sizes in detail */
+$phone-s-appbar-header-width: 140px;
+$phone-s: 375px;
+$phone-m-appbar-header-width: 140px;
+$phone-m: 414px;
+$phone-l-appbar-header-width: 140px;
+$phone-l: 480px;
+
+/* equal or larger phones */
+$phone-padding: 8px;
+$phone-appbar-padding: 4px;
+$phone-appbar-height: 56px;
+$phone-appbar-cover-height: 12px;
+$phone-appbar-header-width: 156px;
+$phone-appbar-actions-min: 2;
+$phone-drawer-width: 260px;
+$phone-breakpoint: 560px;
+
+$tablet-s-appbar-header-width: 172px;
+$tablet-s: 640px;
+$tablet-m-appbar-header-width: 254px;
+$tablet-m: 800px;
+$tablet-l-appbar-header-width: 260px;
+$tablet-l: 960px;
+
+$tablet-padding: 12px;
+$tablet-appbar-padding: 8px;
+$tablet-appbar-height: 64px;
+$tablet-appbar-cover-height: 12px;
+$tablet-appbar-header-width: 280px;
+$tablet-appbar-actions-min: 4;
+$tablet-drawer-width: 280px;
+$tablet-breakpoint: 1024px;
+
+$laptop-padding: 16px;
+$laptop-appbar-padding: 12px;
+$laptop-appbar-height: 72px;
+$laptop-appbar-cover-height: 16px;
+$laptop-appbar-header-width: 280px;
+$laptop-appbar-actions-min: 8;
+$laptop-drawer-width: 320px;
+$laptop-breakpoint: 1440px;
+
+$desktop-padding: 20px;
+$desktop-appbar-padding: 16px;
+$desktop-appbar-height: 80px;
+$desktop-appbar-cover-height: 20px;
+$desktop-appbar-header-width: 280px;
+$desktop-appbar-actions-min: 8;
+$desktop-drawer-width: 340px;
+$desktop-breakpoint: 2160px;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
+}
+
+.solids {
+
+  menu {
+    display: inline-block;
+    list-style-type: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+    padding-left: 0;
+    position: relative;
+
+    > nav {
+      display: none;
+    }
+
+    > input[type="checkbox"] {
+      display: none;
+      
+      &:checked {
+        ~ label::before {
+          content: "";
+          position: fixed;
+          display: block;
+          right: 0;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          z-index: 1;
+        }
+        ~ nav {
+          display: inline-block;
+          position: absolute;
+          z-index: 1;
+          width: $menu-width;
+        }
+      }
+    }
+  }
+
+
+  label > a,
+  nav > a {
+    > i,
+    > img {
+      font-size: 24px;
+      line-height: 1;
+      display: inline-block;
+    }
+    > i {
+      width: $icon-size + $icon-padding * 2;
+      height: $icon-size + $icon-padding * 2;
+      padding: $icon-padding;
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      letter-spacing: normal;
+      text-transform: none;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+
+  .shell {
+    > input[type=checkbox] {
+      display: none;  
+    }
+  
+    > header {
+      position: sticky;
+      top: 0px;
+      background-color: #f4be04;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      z-index: 1;
+
+      label, a {
+        display: inline-block;
+      }
+
+      > section {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        
+        label > a > b, 
+        nav > a > b{
+          display: none;
+        }
+  
+        > header {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          font-family: 'Roboto';
+        }
+        
+        menu.overflow {
+          align-self: flex-start;
+          display: flex;
+          flex-direction: row-reverse;
+          > nav {
+            display: inline-block;
+            height: $icon-size + $icon-padding * 2;
+            overflow: hidden;
+            > * {
+              float: right;
+            }
+          }
+          > input[type=checkbox]:checked {
+            ~ nav {
+              overflow: visible;
+              &::before {
+                content: "";
+                display: inline-block;
+                width: $menu-width;
+                background: #f0f0f0;
+                position:absolute;
+                top: $icon-size + $icon-padding * 2;
+                right: 0;
+                z-index: -1;
+              }
+              > * b {
+                max-width: $menu-width - ($icon-size + $icon-padding * 2);
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                padding: 3px;
+              }
+              > label[for=overflow_open]::before {
+                content: "";
+                position: fixed;
+                display: block;
+                right: 0;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: -1;
+              }
+            }
+          }
+        }
+
+        @media (min-width:0) and (max-width: $phone-s - 1px) {
+          > header {
+            max-width: $phone-s-appbar-header-width;
+          }
+          menu.overflow {
+            > nav {
+              width: 1 * ($icon-size + $icon-padding * 2);
+            }
+            &.contains_5 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 6 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 5 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(2),
+                  > *:nth-child(3),
+                  > *:nth-child(4),
+                  > *:nth-child(5),
+                  > *:nth-child(6) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_4 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 5 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 4 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(2),
+                  > *:nth-child(3),
+                  > *:nth-child(4),
+                  > *:nth-child(5) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_3 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 4 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 3 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(2),
+                  > *:nth-child(3),
+                  > *:nth-child(4) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_2 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 2 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 2 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(2),
+                  > *:nth-child(3) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_1 {
+              > nav > label:first-child {
+                display: none;
+              }
+            }
+          }
+        }
+
+        @media (min-width:$phone-s) and (max-width: $phone-m - 1px) {
+          > header {
+            max-width: $phone-m-appbar-header-width;
+          }
+          menu.overflow {
+            > nav {
+              width: 2 * ($icon-size + $icon-padding * 2);
+            }
+
+            &.contains_5 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 5 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 4 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(3),
+                  > *:nth-child(4),
+                  > *:nth-child(5),
+                  > *:nth-child(6) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_4 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 4 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 3 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(3),
+                  > *:nth-child(4),
+                  > *:nth-child(5) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_3 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 3 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 2 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(3),
+                  > *:nth-child(4) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_2,
+            &.contains_1 {
+              > nav > label:first-child {
+                display: none;
+              }
+            }
+          }
+        }
+
+        @media (min-width:$phone-m) and (max-width: $phone-l - 1px) {
+          > header {
+            max-width: $phone-l-appbar-header-width;
+          }
+          menu.overflow {
+            > nav {
+              width: 3 * ($icon-size + $icon-padding * 2);
+            }
+
+            &.contains_5 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 4 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 3 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(4),
+                  > *:nth-child(5),
+                  > *:nth-child(6) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_4 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 3 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 2 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(4),
+                  > *:nth-child(5) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_3,
+            &.contains_2,
+            &.contains_1 {
+              > nav > label:first-child {
+                display: none;
+              }
+            }
+          }
+        }
+
+        @media (min-width:$phone-l) and (max-width: $phone-breakpoint - 1px) {
+          > header {
+            max-width: $phone-appbar-header-width;
+          }
+          menu.overflow {
+            > nav {
+              width: 4 * ($icon-size + $icon-padding * 2);
+            }
+
+            &.contains_5 {
+              > input[type=checkbox]:checked {
+                ~ nav {
+                  height: 3 * ($icon-size + $icon-padding * 2);
+                  &::before {
+                    height: 2 * ($icon-size + $icon-padding * 2);
+                  }
+                  > *:nth-child(5),
+                  > *:nth-child(6) {
+                    width: $menu-width;
+                    color: black;
+                    b {
+                      display: inline-block;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contains_4,
+            &.contains_3,
+            &.contains_2,
+            &.contains_1 {
+              > nav > label:first-child {
+                display: none;
+              }
+            }
+          }
+        }
+
+        @media (min-width:$phone-breakpoint) {
+          menu.overflow {
+            > nav {
+              width: 5 * ($icon-size + $icon-padding * 2);
+              > label:first-child {
+                display: none;
+              }
+            }
+          }
+        }
+
+        @media (min-width:$phone-breakpoint) and (max-width: $tablet-s - 1px) {
+          > header {
+            max-width: $tablet-s-appbar-header-width;
+          }
+        }
+
+        @media (min-width:$tablet-s) and (max-width: $tablet-m - 1px) {
+          > header {
+            max-width: $tablet-m-appbar-header-width;
+          }
+        }
+
+        @media (min-width:$tablet-m) and (max-width: $tablet-l - 1px) {
+          > header {
+            max-width: $tablet-l-appbar-header-width;
+          }
+        }
+
+        @media (min-width:$tablet-l) and (max-width: $tablet-breakpoint - 1px) {
+          > header {
+            max-width: $tablet-appbar-header-width;
+          }
+        }
+
+
+
+        // /menu.overflow
+
+
+
+        a {
+          text-decoration: none;
+        }
+
+        &:last-of-type {
+          flex-direction: row-reverse;
+        }
+      }
+
+      .icon {
+        color: white;
+      }
+    } // /section
+    
+    > .shadow {
+      position: sticky;
+      height: $appbar-shadow-height;
+      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+      z-index: -1;
+    }
+
+    > .cover {
+      position: sticky;
+      background: linear-gradient(white 35%, rgba(255, 255, 255, 0.8) 60%, rgba(255, 255, 255, 0.6) 70%, rgba(255, 255, 255, 0.4) 80%, rgba(255, 255, 255, 0.2) 90%, transparent);
+      top: 0px;
+      z-index: -1;
+      margin-bottom: -$appbar-shadow-height;
+    }
+    
+    > aside {
+      display: block;
+      position: sticky;
+      width: 0;
+      will-change: width;
+      transition: width 250ms;
+      // overflow: hidden;
+
+      &:first-of-type {
+        float: left;
+      }
+
+      &:last-of-type {
+        float: right;
+        overflow-x: hidden;
+      }
+      
+      > nav {
+        height: 100%;
+        background: rgba(255,0,0,0.5);
+        will-change: transform;
+        transition: transform 250ms;
+      }
+    }
+
+    > main {
+      display: table-cell;
+    }
+
+    [for=start_temp_open] {
+      background: green;
+    }
+
+    // PHONE
+    @media (min-width: 0) and (max-width: $phone-breakpoint - 1px) {
+      > header {
+        height: $phone-appbar-height;
+        > section {
+          padding: $phone-appbar-padding;
+          > header {
+            padding-left: $phone-appbar-padding;
+            font-size: 1.15em;
+          }
+          > label {
+            &[for=start_temp_open],
+            &[for=end_temp_open] {
+              display: block;
+            }
+            &[for=start_pers_closed],
+            &[for=end_pers_closed] {
+              display: none;
+            }
+          }
+        }
+      } // /header
+      > .shadow {
+        top: $phone-appbar-height - $appbar-shadow-height;
+      }
+      > .cover {
+        height: $phone-appbar-cover-height;
+      }
+      > aside {
+        height: 100vh;
+        top: 0;
+        margin-top: -$phone-appbar-height - $phone-appbar-cover-height;
+        z-index: 1;
+      
+        > nav {
+          width: $phone-drawer-width;
+          transform: translateX(-$phone-drawer-width);
+        }
+        &:last-of-type {
+          > nav {
+            transform: translateX($phone-drawer-width);
+          }
+        }
+      }
+      #start_temp_open:checked {
+        ~ aside:first-of-type {
+//          width: $phone-drawer-width;
+          overflow: visible;
+          > nav {
+            transform: translateX(0px);
+          }
+        }
+        + label {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0,0,0,0.5);
+          z-index: 1;
+        }
+      }
+      #end_temp_open:checked ~ aside:last-of-type {
+        width: $phone-drawer-width;
+        > nav {
+          transform: translateX(0px);
+        }
+      }
+      > main {
+        padding: 0 $phone-padding $phone-padding $phone-padding;
+      }
+    }
+    // /PHONE
+
+    
+    // TABLET
+    @media (min-width: $phone-breakpoint) and (max-width: $tablet-breakpoint - 1px) {
+      > header {
+        height: $tablet-appbar-height;
+        > section {
+          padding: $tablet-appbar-padding;
+          > header {
+            padding-left: $tablet-appbar-padding;
+            font-size: 1.25em;
+          }
+          > label {
+            &[for=start_temp_open],
+            &[for=end_temp_open] {
+              display: block;
+            }
+            &[for=start_pers_closed],
+            &[for=end_pers_closed] {
+              display: none;
+            }
+          }
+        }
+        .icon {
+        }
+      } // /section
+      > .shadow {
+        top: $tablet-appbar-height - $appbar-shadow-height;
+      }
+      > .cover {
+        height: $tablet-appbar-cover-height;
+      }
+      > aside {
+        height: calc(100vh - #{$tablet-appbar-height} - #{$tablet-padding});
+        top: $tablet-appbar-height + $tablet-padding;
+      
+        > nav {
+          width: $tablet-drawer-width;
+          transform: translateX(-$tablet-drawer-width);
+        }
+        &:last-of-type {
+          > nav {
+            transform: translateX($tablet-drawer-width);
+          }
+        }
+      }
+      #start_temp_open:checked ~ aside:first-of-type {
+        width: $tablet-drawer-width;
+        > nav {
+          transform: translateX(0px);
+        }
+      }
+      #end_temp_open:checked ~ aside:last-of-type {
+        width: $tablet-drawer-width;
+        > nav {
+          transform: translateX(0px);
+        }
+      }
+      > main {
+        padding: 0 $tablet-padding $tablet-padding $tablet-padding;
+      }
+    }
+    // /TABLET
+
+
+    // LAPTOP
+    @media (min-width: $tablet-breakpoint) and (max-width: $laptop-breakpoint - 1px) {
+      > header {
+        height: $laptop-appbar-height;
+        > section {
+          padding: $laptop-appbar-padding;
+          > header {
+            max-width: $laptop-appbar-header-width;
+            padding-left: $laptop-appbar-padding;
+            font-size: 1.25em;
+          }
+          > label {
+            &[for=start_temp_open],
+            &[for=end_pers_closed]{
+              display: none;
+            }
+            &[for=start_pers_closed],
+            &[for=end_temp_open]{
+              display: block;
+            }
+          }
+        }
+      } // /section
+      > .shadow {
+        top: $laptop-appbar-height - $appbar-shadow-height;
+      }
+      > .cover {
+        height: $laptop-appbar-cover-height;
+      }
+      > aside {
+        height: calc(100vh - #{$laptop-appbar-height} - #{$laptop-padding});
+        top: $laptop-appbar-height + $laptop-padding;
+      
+        > nav {
+          width: $laptop-drawer-width;
+          transform: translateX(-$laptop-drawer-width);
+        }
+        &:last-of-type {
+          > nav {
+            transform: translateX($laptop-drawer-width);
+          }
+        }
+      }
+      #start_temp_open:checked ~ aside:first-of-type {
+        width: $laptop-drawer-width;
+        > nav {
+          transform: translateX(0px);
+        }
+      }
+      #end_temp_open:checked ~ aside:last-of-type {
+        width: $laptop-drawer-width;
+        > nav {
+          transform: translateX(0px);
+        }
+      }
+      > main {
+        padding: 0 $laptop-padding $laptop-padding $laptop-padding;
+      }
+    }
+    // /LAPTOP
+
+
+    // DESKTOP
+    @media (min-width: $laptop-breakpoint) {
+      > header {
+        height: $desktop-appbar-height;
+        > section {
+          padding: $desktop-appbar-padding;
+          > header {
+            max-width: $desktop-appbar-header-width;
+            padding-left: $desktop-appbar-padding;
+            font-size: 1.25em;
+          }
+          > label {
+            &[for=start_temp_open],
+            &[for=end_temp_open]{
+              display: none;
+            }
+            &[for=start_pers_closed],
+            &[for=end_pers_closed]{
+              display: block;
+            }
+          }
+        }
+      } // /section
+      > .shadow {
+        top: $desktop-appbar-height - $appbar-shadow-height;
+      }
+      > .cover {
+        height: $desktop-appbar-cover-height;
+      }
+      > aside {
+        display: block;
+        width: $desktop-drawer-width;
+        height: calc(100vh - #{$desktop-appbar-height} - #{$desktop-padding});
+        top: $desktop-appbar-height + $desktop-padding;
+      }
+      > main {
+        padding: 0 $desktop-padding $desktop-padding $desktop-padding;
+      }
+    }
+    // /DESKTOP
+
+  } // /shell
+} // /solids
